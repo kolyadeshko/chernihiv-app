@@ -19,16 +19,15 @@
                 </div>
                 <div class="form__item">
                     <label for="formDescription">Описание</label>
-                    <textarea name="description" id="formDescription" cols="30" rows="10"></textarea>
+                    <textarea name="description" id="formDescription" cols="30" rows="10" placeholder="Необязательно..."></textarea>
                 </div>
                 <div class="form__item">
                     <div class="form__title">Прикрепить фотографию</div>
                     <div class="file">
                         <div class="file__item">
-                            <input accept=".jpg, .png, .gif" type="file" name="image" class="file__input">
-                            <button class="file__button">Выбрать</button>
+                            <input accept=".jpg, .png, .gif, .jpeg" type="file" name="image" id="formImage" class="file__input" required>
                         </div>
-                        <div class="file__preview"></div>
+                        <div class="file__preview" id="formPreview"></div>
                     </div>
                 </div>
                 <button type="submit" class="form__button">Отправить</button>
@@ -39,7 +38,34 @@
 <br><br><br><br><br><br><br><br><br><br>
 <script>
     "use strict"
-    document.addEventListener("DOMContentLoader",function (){
-        const form = document.getElementById("form");
-    })
+    document.addEventListener("DOMContentLoaded",function (){
+
+        const formImage = document.getElementById("formImage");
+        const formPreview = document.getElementById("formPreview");
+
+        formImage.addEventListener("change",() => {
+            uploadFile(formImage.files[0]);
+        });
+
+        function uploadFile(file){
+            if (!['image/jpeg','image/jpg','image/png','image/gif'].includes(file.type)){
+                alert("Разрешены только изображения");
+                formImage.value = '';
+                return;
+            }
+            if(file.size > 5 * 1024 * 1024){
+                alert("Файл должен быть менее 2 МБ");
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                console.log(e.target.result);
+                formPreview.innerHTML = `<img src="${e.target.result}" alt="Фото">`
+            };
+            reader.onerror = function (e) {
+                alert("Ошибка")
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
