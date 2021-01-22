@@ -27,12 +27,14 @@ class PublicationController extends Controller
 
     public function publicationAdd()
     {
+        $categories = $this -> models["category"] -> getAll();
         return
             $this->renderer->render(
                 $this->request,
                 "publication-form",
                 [
-                    "title" => "Добавление публикации"
+                    "title" => "Добавление публикации",
+                    "categories" => $categories
                 ]
 
             );
