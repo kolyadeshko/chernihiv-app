@@ -9,6 +9,7 @@ use App\Uploader\ImageUploader;
 
 class PublicationController extends Controller
 {
+
     public function publicationsList($params = [])
     {
         $sqlParams = [];
@@ -26,7 +27,7 @@ class PublicationController extends Controller
         );
     }
 
-    public function publicationAdd()
+    public function publicationAdd($errorList = '')
     {
         $categories = $this -> models["category"] -> getAll();
         return
@@ -35,18 +36,25 @@ class PublicationController extends Controller
                 "publication-form",
                 [
                     "title" => "Добавление публикации",
-                    "categories" => $categories
+                    "categories" => $categories,
+                    "errorList" => $errorList
                 ]
 
             );
     }
+
+
     public function publicationAddDataProcessing(){
         // данные пост-запроса
         $data = $this -> request -> getPostParams();
         // переданное изображение
         $image = $this -> request -> getFiles()["image"];
 
-        $imageUploader = new ImageUploader($image,"/publications");
-        echo $imageUploader->getFullMediaDir();
+        $imageUploader = new ImageUploader($image,MEDIA ."/publications");
+        $imageUploader -> validate();
+        $errorList = $imageUploader -> getErrorList();
+        if ($errorList){
+            header("Location:/publication-add");
+        }
     }
 }

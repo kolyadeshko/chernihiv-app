@@ -48,15 +48,15 @@
         });
 
         function uploadFile(file){
-            if (!['image/jpeg','image/jpg','image/png','image/gif'].includes(file.type)){
-                alert("Разрешены только изображения");
-                formImage.value = '';
-                return;
-            }
-            if(file.size > 5 * 1024 * 1024){
-                alert("Файл должен быть менее 2 МБ");
-                return;
-            }
+            // if (!['image/jpeg','image/jpg','image/png','image/gif'].includes(file.type)){
+            //     alert("Разрешены только изображения");
+            //     formImage.value = '';
+            //     return;
+            // }
+            // if(file.size > 5 * 1024 * 1024){
+            //     alert("Файл должен быть менее 2 МБ");
+            //     return;
+            // }
             var reader = new FileReader();
             reader.onload = function (e) {
                 console.log(e.target.result);
