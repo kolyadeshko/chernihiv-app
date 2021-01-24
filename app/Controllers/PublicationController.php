@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Controller;
+use App\Uploader\ImageUploader;
 
 class PublicationController extends Controller
 {
@@ -38,5 +39,14 @@ class PublicationController extends Controller
                 ]
 
             );
+    }
+    public function publicationAddDataProcessing(){
+        // данные пост-запроса
+        $data = $this -> request -> getPostParams();
+        // переданное изображение
+        $image = $this -> request -> getFiles()["image"];
+
+        $imageUploader = new ImageUploader($image,"/publications");
+        echo $imageUploader->getFullMediaDir();
     }
 }

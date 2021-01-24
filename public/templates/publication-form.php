@@ -1,7 +1,7 @@
 <div id="publication-add">
     <div class="container">
         <div class="publication-add__form">
-            <form action="#" id="form">
+            <form method="post" enctype="multipart/form-data" action="/publication-add-data-processing" id="form">
                 <h1 class="form__title">Создание публикации</h1>
                 <div class="form__item">
                     <div class="options">
@@ -60,7 +60,7 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 console.log(e.target.result);
-                formPreview.innerHTML = `<img src="${e.target.result}" alt="Фото">`
+                formPreview.innerHTML = `<img src="${e.target.result}" height="100" alt="Фото">`
             };
             reader.onerror = function (e) {
                 alert("Ошибка")

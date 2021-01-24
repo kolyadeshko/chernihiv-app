@@ -39,4 +39,7 @@ class Request
     public function getGetParams(){
         return $_GET;
     }
+    public function getFiles(){
+        return $_FILES;
+    }
 }

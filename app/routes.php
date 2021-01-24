@@ -36,6 +36,15 @@ $routes = [
         ],
         "description" => "Форма добавления публикации"
     ],
+    [
+        "method" => "POST",
+        "path" => "/publication-add-data-processing",
+        "handler" => [
+            "className" => "PublicationController",
+            "methodName" => "publicationAddDataProcessing"
+        ],
+        "description" => "Функция которая обрабатывает данные с формы публикации"
+    ]
 
 ];
 
