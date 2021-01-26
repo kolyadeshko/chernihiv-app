@@ -20,4 +20,7 @@ class Authentication
     public function isAuth(){
         return true;
     }
+    public function getUserId(){
+        return 1;
+    }
 }

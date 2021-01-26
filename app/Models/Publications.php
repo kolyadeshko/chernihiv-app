@@ -23,4 +23,10 @@ class Publications extends MySqlModel
         $stmt = $this->connection -> query($sql);
         return $stmt -> fetchAll(\PDO::FETCH_CLASS);
     }
+    public  function insertPublication($data){
+        if ($data['categoryid'] === "") $data["categoryid"] = null;
+        $sql = "INSERT INTO publications {$this->sqlParser->getInsertExpression($data)}";
+        $this -> connection -> query($sql);
+
+    }
 }

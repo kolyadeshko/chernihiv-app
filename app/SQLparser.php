@@ -96,5 +96,12 @@ class SQLparser
         $maxMinCondition = join(" AND ", $maxMinCondition);
         return $maxMinCondition;
     }
+
+    function getInsertExpression($data){
+        $keysArr = array_keys($data);
+        $keysString = join(",",$keysArr);
+        $valueString = join(",",array_map(function ($v){ if ($v===null){ return 'NULL';} return "'".$v."'";},$data));
+        return "($keysString) VALUES ($valueString)";
+    }
 }
 

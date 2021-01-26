@@ -29,7 +29,7 @@ class PublicationController extends Controller
 
     public function publicationAdd($errorList = '')
     {
-        $categories = $this -> models["category"] -> getAll();
+        $categories = $this->models["category"]->getAll();
         return
             $this->renderer->render(
                 $this->request,
@@ -44,40 +44,49 @@ class PublicationController extends Controller
     }
 
 
-    public function publicationAddDataProcessing(){
+    public function publicationAddDataProcessing()
+    {
         // данные пост-запроса
-        $postParams = $this -> request -> getPostParams();
+        $postParams = $this->request->getPostParams();
         // переданное изображение
-        $image = $this -> request -> getFiles()["image"];
+        $image = $this->request->getFiles()["image"];
 
-        $imageUploader = new ImageUploader($image,"media/publications");
-        $imageUploader -> validate();
-        $errorList = $imageUploader -> getErrorList();
-        if($errorList){
+        $imageUploader = new ImageUploader($image, "media/publications");
+        $imageUploader->validate();
+        $errorList = $imageUploader->getErrorList();
+        if ($errorList) {
             $answer = [
                 "isValid" => false,
                 "answerData" => $errorList
             ];
         } else {
-            $data = array_merge($postParams,["photo" => "/publications/{$imageUploader->getImageName()}"]);
-            // ДЕЙСТВИЯ
+            $data = array_merge(
+                $postParams,
+                [
+                    "photo" => "/publications/{$imageUploader->getImageName()}",
+                    "userid" => $this->request->auth->getUserId()
+                ]
+            );
+            $imageUploader->upload();
+            $this->models['publications']->insertPublication($data);
             $answer = [
                 "isValid" => true,
                 "answerData" => $data
             ];
         }
-        $this -> request -> setSession("answer",$answer);
+        $this->request->setSession("answer", $answer);
         header("Location:/publication-add-answer");
 
     }
 
-    public function publicationAddAnswer(){
+    public function publicationAddAnswer()
+    {
         session_start();
         if (!isset($_SESSION["answer"])) header("Location:/");
         $answerData = $_SESSION["answer"];
         unset($_SESSION['answer']);
-        return $this -> renderer -> render(
-            $this -> request,
+        return $this->renderer->render(
+            $this->request,
             "publication-add-answer",
             [
                 "answerData" => $answerData

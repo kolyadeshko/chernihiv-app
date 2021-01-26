@@ -6,12 +6,12 @@
                 <div class="form__item">
                     <div class="options">
                         <div class="options__item">
-                            <input id="forLabelWithout"  type="radio" name="category" value="" class="options__input" checked>
+                            <input id="forLabelWithout"  type="radio" name="categoryid" value="" class="options__input" checked>
                             <label for="forLabelWithout">Без категории</label>
                         </div>
                         <?php foreach ($categories as $key=>$value): ?>
                         <div class="options__item">
-                            <input id="forLabel<?= $value->id ?>"  type="radio" name="category" value="<?= $value->id ?>" class="options__input">
+                            <input id="forLabel<?= $value->id ?>"  type="radio" name="categoryid" value="<?= $value->id ?>" class="options__input">
                             <label for="forLabel<?= $value->id ?>"><?= $value->categoryname; ?></label>
                         </div>
                         <?php endforeach; ?>
