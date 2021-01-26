@@ -7,12 +7,17 @@
                         <div class="p-item__logo">
                             <img src="<?= MEDIA . $v->photo ?>" alt="" width="300px">
                         </div>
-                        <div class="p-item__created">
-                            <?php var_dump(date("M d h", strtotime($v->created))); ?>
-                            <?php echo $v->username, $v->userid, $v->categoryname; ?>
-                        </div>
-                        <div class="p-item__user">
+                        <div class="p-item__body">
+                            <div class="p-item__created">
+                                <div class="p-item__title">Дата публикации:</div>
+                                <?php echo date("d.m.Y H:m", strtotime($v->created)); ?>
+                            </div>
 
+                            <a href="/user/<?= $v->userid; ?>" class="p-item__user">
+                                <div class="p-item__title">Автор:</div>
+                                <?php echo $v->username; ?>
+                            </a>
+                            <a href="/publication/<?= $v->id; ?>" class="p-item__button">Ближе</a>
                         </div>
                     </div>
                 <?php endif; ?>
