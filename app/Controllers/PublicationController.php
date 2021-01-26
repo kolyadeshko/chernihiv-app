@@ -46,15 +46,44 @@ class PublicationController extends Controller
 
     public function publicationAddDataProcessing(){
         // данные пост-запроса
-        $data = $this -> request -> getPostParams();
+        $postParams = $this -> request -> getPostParams();
         // переданное изображение
         $image = $this -> request -> getFiles()["image"];
 
-        $imageUploader = new ImageUploader($image,MEDIA ."/publications");
+        $imageUploader = new ImageUploader($image,"media/publications");
         $imageUploader -> validate();
         $errorList = $imageUploader -> getErrorList();
-        if ($errorList){
-            header("Location:/publication-add");
+        if($errorList){
+            $answer = [
+                "isValid" => false,
+                "answerData" => $errorList
+            ];
+        } else {
+            $data = array_merge($postParams,["photo" => "/publications/{$imageUploader->getImageName()}"]);
+            // ДЕЙСТВИЯ
+            $answer = [
+                "isValid" => true,
+                "answerData" => $data
+            ];
         }
+        $this -> request -> setSession("answer",$answer);
+        header("Location:/publication-add-answer");
+
     }
+
+    public function publicationAddAnswer(){
+        session_start();
+        if (!isset($_SESSION["answer"])) header("Location:/");
+        $answerData = $_SESSION["answer"];
+        unset($_SESSION['answer']);
+        return $this -> renderer -> render(
+            $this -> request,
+            "publication-add-answer",
+            [
+                "answerData" => $answerData
+            ]
+        );
+    }
+
+
 }

@@ -44,7 +44,17 @@ $routes = [
             "methodName" => "publicationAddDataProcessing"
         ],
         "description" => "Функция которая обрабатывает данные с формы публикации"
-    ]
+    ],
+    [
+        "method" => 'GET',
+        "path" => "/publication-add-answer",
+        "handler" => [
+            "className" => "PublicationController",
+            "methodName" => "publicationAddAnswer"
+        ],
+        "description" => "Ответ после отправки формы публикации"
+    ],
+
 
 ];
 

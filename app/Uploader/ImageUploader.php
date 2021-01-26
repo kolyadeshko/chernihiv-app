@@ -18,7 +18,7 @@ class ImageUploader
         $this -> name = NameGenerator::generageName();
     }
 
-    private function getImageName()
+    public function getImageName()
     {
         $name = $this->name . "." . $this->getExt();
         return $name;
@@ -63,12 +63,12 @@ class ImageUploader
         }
     }
 
-    private function validateImageSize($maxSize = 5 * 1024 * 1024)
+    private function validateImageSize($maxSize = 5)
     {
-        $size = $this->image["size"];
+        $size = $this->image["size"]/1024/1024;
         if ($size > $maxSize) {
-            $this->pushError("Размер загруженного изображения ($size) 
-            превышает допустимый размер ($maxSize)");
+            $this->pushError("Размер загруженного изображения ($size Мб) 
+            превышает допустимый размер ($maxSize Мб)");
         }
     }
 
