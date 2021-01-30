@@ -84,7 +84,7 @@ class PublicationController extends Controller
         session_start();
         if (!isset($_SESSION["answer"])) header("Location:/");
         $answerData = $_SESSION["answer"];
-        unset($_SESSION['answer']);
+//        unset($_SESSION['answer']);
         return $this->renderer->render(
             $this->request,
             "publication-add-answer",

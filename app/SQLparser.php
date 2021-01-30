@@ -6,6 +6,7 @@ namespace App;
 
 class SQLparser
 {
+
     public function getCondition($conditionArray)
     {
         if (empty($conditionArray)) return "";
@@ -16,11 +17,16 @@ class SQLparser
         foreach ($conditionArray as $key => $value) {
             if (empty($value)) continue;
             $condition = "";
-            if (preg_match_all("/^(\w+)@minmax$/i", $key, $match)) {
-                // извлекаем из массива название поля
-                $field = $match[1][0];
-                // получаем выражение с больше или меньше
-                $condition = $this->getMinMaxCondition($value, $field);
+            if (
+                is_string($value) && preg_match_all("/^(\d*):(\d*)$/i", $value, $match)
+            ) {
+                // извлекаем из массива match максимальное и минимальное значения
+                $min = $match[1][0];
+                $max = $match[2][0];
+                var_dump(!($min && $max));
+                if (!$min && !$max) continue;
+                // получаем выражение с больше(и/или)меньше
+                $condition = $this->getMinMaxCondition($key,$min,$max);
             } elseif ($key === "orderby") {
                 $orderBy = $this->getOrderBy($value);
             } elseif ($key === "ordering") {
@@ -46,7 +52,7 @@ class SQLparser
                     return '"' . $v . '"';
                 }, $value)) . ")";
         } else {
-            return $key . "=" . $value;
+            return "$key = :$key";
         }
     }
 
@@ -78,30 +84,29 @@ class SQLparser
     }
 
     // метод который возвращает выражение с больше или меньше
-    protected function getMinMaxCondition($maxMin, $field)
+    protected function getMinMaxCondition($field,$min,$max)
     {
-        // массив с условиями
-        $maxMinCondition = [];
-        // проверяем существует ли в массиве максимальное значение
-        if (isset($maxMin['max'])) {
-            array_push($maxMinCondition, "$field < " . $maxMin["max"]);
+        // оператор который будет между min и max (AND или OR)
+        $operator = '';
+        if ($min && $max){
+            $min < $max ? $operator = "AND" : $operator = "OR";
         }
-        // проверяем существует ли в массиве минимальное значение
-        if (isset($maxMin["min"])) {
-            array_push($maxMinCondition, "$field > " . $maxMin['min']);
-        }
-        // если массив пустой, возвращаем пустую строку
-        if (empty($maxMinCondition)) return "";
-        // в противном случае соединяем элементы массива с разделителем AND
-        $maxMinCondition = join(" AND ", $maxMinCondition);
-        return $maxMinCondition;
+        $max ? $maxString = "$field < $max" : $maxString = "";
+        $min ? $minString = "$field > $min" : $minString = "";
+        return "($minString $operator $maxString)";
     }
 
-    function getInsertExpression($data){
-        $keysArr = array_keys($data);
-        $keysString = join(",",$keysArr);
-        $valueString = join(",",array_map(function ($v){ if ($v===null){ return 'NULL';} return "'".$v."'";},$data));
-        return "($keysString) VALUES ($valueString)";
+
+
+    public function getInsertExpression($table,$data)
+    {
+        $keys = array_keys($data);
+        $keyString = join(",", $keys);
+        $valueString = join(",", array_map(function ($v) {
+            return ":" . $v;
+        }, $keys));
+        return "INSERT INTO `$table` ($keyString) VALUES ($valueString)";
     }
+
 }
 

@@ -6,6 +6,11 @@ namespace App\Models;
 
 class Publications extends MySqlModel
 {
+    static public $fields = [
+        "id", "description", ""
+    ];
+
+
     public function getPublicationsByCategory($sqlParams){
         $where = $this -> sqlParser -> getCondition($sqlParams);
         $sql = "SELECT
@@ -24,7 +29,7 @@ class Publications extends MySqlModel
         return $stmt -> fetchAll(\PDO::FETCH_CLASS);
     }
     public  function insertPublication($data){
-        if ($data['categoryid'] === "") $data["categoryid"] = null;
+        if ($data['categoryid'] === "") unset($data["categoryid"]);
         $sql = "INSERT INTO publications {$this->sqlParser->getInsertExpression($data)}";
         $this -> connection -> query($sql);
 

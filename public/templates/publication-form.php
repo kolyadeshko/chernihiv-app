@@ -1,9 +1,12 @@
 <div id="publication-add">
-    <div class="container">
+    <div class="publication-add__container">
         <div class="publication-add__form">
             <form method="post" enctype="multipart/form-data" action="/publication-add-data-processing" id="form">
                 <h1 class="form__title">Создание публикации</h1>
                 <div class="form__item">
+                    <div class="form__subtitle">
+                        Категории
+                    </div>
                     <div class="options">
                         <div class="options__item">
                             <input id="forLabelWithout"  type="radio" name="categoryid" value="" class="options__input" checked>
@@ -18,11 +21,11 @@
                     </div>
                 </div>
                 <div class="form__item">
-                    <label for="formDescription">Описание</label>
+                    <label for="formDescription" class="form__subtitle">Описание</label>
                     <textarea name="description" id="formDescription" cols="30" rows="10" placeholder="Необязательно..."></textarea>
                 </div>
                 <div class="form__item">
-                    <div class="form__title">Прикрепить фотографию</div>
+                    <div class="form__subtitle">Прикрепить фотографию</div>
                     <div class="file">
                         <div class="file__item">
                             <input accept=".jpg, .png, .gif, .jpeg" type="file" name="image" id="formImage" class="file__input" required>
@@ -35,7 +38,6 @@
         </div>
     </div>
 </div>
-<br><br><br><br><br><br><br><br><br><br>
 <script>
     "use strict"
     document.addEventListener("DOMContentLoaded",function (){
@@ -48,15 +50,15 @@
         });
 
         function uploadFile(file){
-            if (!['image/jpeg','image/jpg','image/png','image/gif'].includes(file.type)){
-                alert("Разрешены только изображения");
-                formImage.value = '';
-                return;
-            }
-            if(file.size > 5 * 1024 * 1024){
-                alert("Файл должен быть менее 2 МБ");
-                return;
-            }
+            // if (!['image/jpeg','image/jpg','image/png','image/gif'].includes(file.type)){
+            //     alert("Разрешены только изображения");
+            //     formImage.value = '';
+            //     return;
+            // }
+            // if(file.size > 5 * 1024 * 1024){
+            //     alert("Файл должен быть менее 2 МБ");
+            //     return;
+            // }
             var reader = new FileReader();
             reader.onload = function (e) {
                 console.log(e.target.result);
