@@ -25,7 +25,8 @@ class Publications extends MySqlModel
                                 INNER JOIN users ON users.id = publications.userid
                             )" . $where;
         echo ($sql);
-        $stmt = $this->connection -> query($sql);
+        $stmt = $this->connection -> prepare($sql);
+        $stmt -> execute($sqlParams);
         return $stmt -> fetchAll(\PDO::FETCH_CLASS);
     }
     public  function insertPublication($data){

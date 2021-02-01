@@ -55,7 +55,15 @@ $routes = [
         "description" => "Ответ после отправки формы публикации"
     ],
 
-
+    [
+        "method" => "GET",
+        "path" => "/register",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "userRegister"
+        ],
+        "description" => "Форма регистрации"
+    ]
 ];
 
 return $routes;
