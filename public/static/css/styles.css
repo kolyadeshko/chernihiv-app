@@ -286,71 +286,6 @@ body, body * {
 }
 
 /* ФОРМА ПУБЛИКАЦИИ */
-.publication-add__container {
-    width: 70%;
-    margin: 0 auto;
-}
-
-.publication-add {
-}
-
-.publication-add__form {
-    padding: 10px;
-
-}
-
-.form__subtitle {
-    display: block;
-    font-family: PTSans;
-}
-
-.form__title {
-    font-family: PTSans;
-    font-size: 30px;
-}
-
-.form__item {
-    font-size: 20px;
-}
-
-#form > * {
-    margin: 10px 0;
-    text-align: center;
-    font-family: PTSans;
-}
-
-.options {
-
-}
-
-.options__item {
-    text-align: center;
-    flex: 1 1 33%;
-}
-
-.options__input {
-
-}
-
-.file {
-}
-
-.file__item {
-}
-
-.file__input {
-}
-
-.file__preview {
-}
-
-.form__button {
-    width: 100%;
-    background-color: red;
-    color: white;
-    font-size: 30px;
-    box-shadow: none;
-}
 
 
 /* ОТВЕТ ПУБЛИКАЦИЯ  */
@@ -429,6 +364,107 @@ body, body * {
     margin:20px 0;
 }
 
+/* ФОРМА ПУБЛИКАЦИИ */
+
+.register{
+    font-family: Arial;
+}
+.register__container{
+    width: 50%;
+    margin:0 auto;
+}
+.register__row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:20px;
+    background-color: blanchedalmond;
+    box-shadow: 1px 1px 1px;
+    border-radius: 5px;
+}
+.register__title{
+    text-align: center;
+    font-weight: bold;
+    font-size:25px;
+    padding:10px 0;
+}
+.register__body{
+    padding:10px 0;
+}
+#register__form{
+
+}
+.form__item{
+    padding:0 0 10px 0;
+}
+.form__subtitle{
+
+}
+.form__input{
+    margin: 10px 0 0 0;
+}
+.form__input>input{
+    border-radius: 5px;
+    font-size: 18px;
+    width: 100%;
+    transition: width 0.2s;
+}
+
+.form__input.valid>input{
+    box-shadow: 1px 1px 5px 2px green;
+}
+.form__input.invalid>input{
+    box-shadow: 1px 1px 5px 2px red;
+}
+#password__reliability-text{
+    display: inline;
+    font-family: "Impact";
+    font-size: 20px;
+    text-shadow: 0 0 2px black;
+}
+#password__reliability-text.low{
+    color: #ffbf00;
+}
+#password__reliability-text.medium{
+    color: #aeff6a;
+}
+#password__reliability-text.high{
+    color: #00ff00;
+}
+#form__age{
+    width: 50%;
+}
+.form__button{
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+.form__button>input{
+    font-family: "Comic Sans MS";
+    font-weight: bold;
+    border: none;
+    padding:7px;
+    width: 50%;
+    background-color: lime;
+    border:1px solid;
+}
+
+.form__errors{
+    margin: 10px 0 0 0;
+    background-color: #ff4747;
+    border-radius: 7px;
+    color:white;
+    text-align: center;
+}
+.errors__list{
+    padding:15px;
+
+}
+.errors_item{
+
+}
+#password__show{
+    margin: 15px 0;
+}
 
 
 

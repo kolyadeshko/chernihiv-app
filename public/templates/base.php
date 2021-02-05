@@ -10,7 +10,6 @@
 </head>
 <body>
 <?php  include "includes/header.php"?>
-<?php include "$templateName.php"?>
 <script src="../static/js/scripts.js"></script>
 </body>
 </html>

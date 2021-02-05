@@ -11,7 +11,7 @@ class MyRenderer implements Renderer
     {
         extract($data,EXTR_SKIP);
         ob_start();
-        include(__DIR__."\..\..\public\\templates\\base.php");
+        include(__DIR__."\..\..\public\\templates\\$templateName.php");
         $content = ob_get_clean();
         return $content;
 

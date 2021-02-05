@@ -1,3 +1,17 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <title><?= $title ?></title>
+</head>
+<body>
+<?php  include "includes/header.php"?>
 <div id="publication-add">
     <div class="publication-add__container">
         <div class="publication-add__form">
@@ -13,10 +27,10 @@
                             <label for="forLabelWithout">Без категории</label>
                         </div>
                         <?php foreach ($categories as $key=>$value): ?>
-                        <div class="options__item">
-                            <input id="forLabel<?= $value->id ?>"  type="radio" name="categoryid" value="<?= $value->id ?>" class="options__input">
-                            <label for="forLabel<?= $value->id ?>"><?= $value->categoryname; ?></label>
-                        </div>
+                            <div class="options__item">
+                                <input id="forLabel<?= $value->id ?>"  type="radio" name="categoryid" value="<?= $value->id ?>" class="options__input">
+                                <label for="forLabel<?= $value->id ?>"><?= $value->categoryname; ?></label>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -71,3 +85,7 @@
         }
     });
 </script>
+
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>

@@ -9,7 +9,7 @@ class Publications extends MySqlModel
     static public $fields = [
         "id", "description", ""
     ];
-
+    public $tablename = "publications";
 
     public function getPublicationsByCategory($sqlParams){
         $where = $this -> sqlParser -> getCondition($sqlParams);
@@ -31,8 +31,8 @@ class Publications extends MySqlModel
     }
     public  function insertPublication($data){
         if ($data['categoryid'] === "") unset($data["categoryid"]);
-        $sql = "INSERT INTO publications {$this->sqlParser->getInsertExpression($data)}";
-        $this -> connection -> query($sql);
-
+        $sql = $this -> sqlParser -> getInsertExpression($this -> tablename,$data);
+        $stmt = $this -> connection -> prepare($sql);
+        $stmt -> execute($data);
     }
 }

@@ -1,3 +1,17 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <title>Ответ</title>
+</head>
+<body>
+<?php  include "includes/header.php"?>
+
 <div id="answer">
     <div class="container">
         <?php if ($answerData["isValid"]): ?>
@@ -42,7 +56,7 @@
                     <div class="answer__text">
                         <ul>
                             <?php foreach ($answerData["answerData"] as $k=>$v): ?>
-                            <li><?= $v ?></li>
+                                <li><?= $v ?></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -60,3 +74,6 @@
         <?php endif; ?>
     </div>
 </div>
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>
