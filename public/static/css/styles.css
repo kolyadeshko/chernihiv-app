@@ -398,7 +398,7 @@ body, body * {
     padding:0 0 10px 0;
 }
 .form__subtitle{
-
+    font-size: 22px;
 }
 .form__input{
     margin: 10px 0 0 0;
@@ -465,8 +465,113 @@ body, body * {
 #password__show{
     margin: 15px 0;
 }
+.form__options{
+
+}
+.form__option{
+    font-size: 19px;
+}
+.form__option>input{
+
+}
 
 
+/*Форма публикации*/
+.publication-add{
+    font-family: "Noto Sans";
+    font-weight: bold;
+}
+.publication-add__container{
+    width: 60%;
+    margin:0 auto;
+}
+.publication-add__row{
+    padding:15px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 20px ridge rgba(58, 199, 84, 0.8);
+    border-radius: 0px 19px 17px 0px;
+}
+.publication-add__title{
+    text-align: center;
+    margin: 10px 0;
+    font-size: 28px;
+}
+.publication-add__body{
+    padding: 15px;
+}
+#publication-add__form{
+
+}
+#form__description{
+    width: 100%;
+    resize: none;
+    transition: all 0.3s;
+    font-size: 19px;
+    font-family: AireExterior;
+    padding:10px;
+}
+#form__description:focus{
+    height: 200px;
+}
+
+.file{
+
+}
+.file__container{
+    position: relative;
+    margin:10px 0 0 0;
+    display: inline-flex;
+}
+#file__input{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    font-size: 0;
+    top:0;
+    left: 0;
+    cursor: pointer;
+
+}
+.file__button{
+    background-color: #00cb00;
+    padding:10px;
+    font-size: 22px;
+    color:white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+.file__button>img{
+    display: block;
+    height: 40px;
+}
+.file__preview{
+
+}
+.preview{
+
+}
+.preview__body{
+    width: 90%;
+    margin:20px 0 0 0;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.3);
+    padding:20px;
+}
+.preview__body>img{
+    display: block;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .publication-add__container{
+        width: 80%;
+    }
+}
 
 
 

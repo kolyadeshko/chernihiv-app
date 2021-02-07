@@ -63,6 +63,24 @@ $routes = [
             "methodName" => "userRegister"
         ],
         "description" => "Форма регистрации"
+    ],
+    [
+        "method" => "GET",
+        "path" => "/get-category-list",
+        "handler" => [
+            "className" => "CategoryController",
+            "methodName" => "categoriesForPublicationAdd"
+        ],
+        "description" => "Асинхронный запрос списка публикаций для формы добавления публикации"
+    ],
+    [
+        "method" => "GET",
+        "path" => "/check-user-register",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "checkUser"
+        ],
+        "description" => "Асинхронная проверка данного значения по данному полю в таблице users в базе данных"
     ]
 ];
 

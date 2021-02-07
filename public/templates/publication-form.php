@@ -8,84 +8,111 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title><?= $title ?></title>
 </head>
 <body>
 <?php  include "includes/header.php"?>
-<div id="publication-add">
+<div class="publication-add">
     <div class="publication-add__container">
-        <div class="publication-add__form">
-            <form method="post" enctype="multipart/form-data" action="/publication-add-data-processing" id="form">
-                <h1 class="form__title">Создание публикации</h1>
-                <div class="form__item">
-                    <div class="form__subtitle">
-                        Категории
-                    </div>
-                    <div class="options">
-                        <div class="options__item">
-                            <input id="forLabelWithout"  type="radio" name="categoryid" value="" class="options__input" checked>
-                            <label for="forLabelWithout">Без категории</label>
+        <div class="publication-add__row">
+            <div class="publication-add__title">
+                Добавление публикации
+            </div>
+            <div class="publication-add__body">
+                <form method="post" id="publication-add__form" enctype="multipart/form-data"
+                      action="/publication-add-data-processing">
+                    <div class="form__item">
+                        <div class="form__subtitle">
+                            Категория:
                         </div>
-                        <?php foreach ($categories as $key=>$value): ?>
-                            <div class="options__item">
-                                <input id="forLabel<?= $value->id ?>"  type="radio" name="categoryid" value="<?= $value->id ?>" class="options__input">
-                                <label for="forLabel<?= $value->id ?>"><?= $value->categoryname; ?></label>
+                        <div class="form__input">
+                            <div class="form__options">
+                                <div class="form__option">
+                                    <input v-model="categoryValue" id="forLabelWithout" type="radio" name="categoryid"
+                                           value="" class="option__input" checked>
+                                    <label for="forLabelWithout">Без категории</label>
+                                </div>
+                                <div class="form__option" v-for="category in categoryList">
+                                    <input v-model="categoryValue" :id="'forLabel'+category.id" type="radio"
+                                           name="categoryid" :value="category.id" class="option__input">
+                                    <label :for="'forLabel'+category.id">{{ category.categoryname }}</label>
+                                </div>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <div class="form__item">
-                    <label for="formDescription" class="form__subtitle">Описание</label>
-                    <textarea name="description" id="formDescription" cols="30" rows="10" placeholder="Необязательно..."></textarea>
-                </div>
-                <div class="form__item">
-                    <div class="form__subtitle">Прикрепить фотографию</div>
-                    <div class="file">
-                        <div class="file__item">
-                            <input accept=".jpg, .png, .gif, .jpeg" type="file" name="image" id="formImage" class="file__input" required>
                         </div>
-                        <div class="file__preview" id="formPreview"></div>
                     </div>
-                </div>
-                <button type="submit" class="form__button">Отправить</button>
-            </form>
+                    <div class="form__item">
+                        <div class="form__subtitle">
+                            <label for="form__description">Описание:</label>
+                        </div>
+                        <div class="form__input">
+                                <textarea
+                                        name="description"
+                                        v-model="description"
+                                        id="form__description"
+                                >
+                                </textarea>
+                        </div>
+
+                    </div>
+                    <div class="form__item">
+                        <div class="form__subtitle">
+                            Фотография
+                        </div>
+                        <div class="file">
+                            <div class="file__container">
+                                <input
+                                        accept=".jpg, .png, .gif, .jpeg"
+                                        type="file"
+                                        name="image"
+                                        id="file__input"
+                                        @change="uploadImage"
+                                        ref="image"
+                                        required
+                                >
+                                <div class="file__button">
+                                    <img src="../static/img/clip.ico" alt="">
+                                </div>
+                            </div>
+                            <div class="file__data" v-if="previewImage">
+                                <div class="data">
+                                    <div class="data__body">
+                                        <div class="data__item">
+                                            Название: {{ imageData.name }}
+                                        </div>
+                                        <div class="data__item">
+                                            Размер:{{ imageData.size }}
+                                        </div>
+                                        <div class="data__item">
+                                            Тип:{{ imageData.type }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file__preview" v-if="previewImage">
+                                <div class="preview">
+                                    <div class="preview__body">
+                                        <img :src="previewImage" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__errors" v-if="fileData.errors.length">
+                            <ul class="errors__list">
+                                <li class="errors_item" v-for="error in fileData.errors">{{ error }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form__button">
+                        <input type="submit">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-<script>
-    "use strict"
-    document.addEventListener("DOMContentLoaded",function (){
-
-        const formImage = document.getElementById("formImage");
-        const formPreview = document.getElementById("formPreview");
-
-        formImage.addEventListener("change",() => {
-            uploadFile(formImage.files[0]);
-        });
-
-        function uploadFile(file){
-            // if (!['image/jpeg','image/jpg','image/png','image/gif'].includes(file.type)){
-            //     alert("Разрешены только изображения");
-            //     formImage.value = '';
-            //     return;
-            // }
-            // if(file.size > 5 * 1024 * 1024){
-            //     alert("Файл должен быть менее 2 МБ");
-            //     return;
-            // }
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                console.log(e.target.result);
-                formPreview.innerHTML = `<img src="${e.target.result}" height="100" alt="Фото">`
-            };
-            reader.onerror = function (e) {
-                alert("Ошибка")
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-</script>
-
+<script src="../static/js/publication-add.js"></script>
 <script src="../static/js/scripts.js"></script>
 </body>
 </html>

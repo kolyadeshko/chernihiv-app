@@ -53,7 +53,7 @@ const form = new Vue({
             errorList.push(message);
         },
         checkDB: async function (field, value) {
-            return await axios.get(`script.php?${field}=${value}`);
+            return await axios.get(`/check-user-register?${field}=${value}`);
         }
 
     },

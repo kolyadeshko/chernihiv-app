@@ -17,4 +17,12 @@ class UserController extends Controller
         );
     }
 
+    public function checkUser(){
+        $field = key($this -> request -> getGetParams());
+        $value = $_GET[$field];
+        $res = $this -> models['users'] -> getByField($field,$value);
+        if (!empty($res)) return "+";
+        return "-";
+    }
+
 }

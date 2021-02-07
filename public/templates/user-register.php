@@ -22,7 +22,7 @@
             </div>
             <div class="register__body">
 
-                <form id="register__form" action="script.php" method="post" @submit="checkForm" novalidate>
+                <form id="register__form" action="" method="post" @submit="checkForm" novalidate>
                     <div class="form__item">
                         <div class="form__subtitle">
                             <label for="form__nickname">Ваш ник: </label>

@@ -18,5 +18,8 @@ class CategoryController extends Controller
             ]
         );
     }
+    public function categoriesForPublicationAdd(){
+        return json_encode($this -> models['category'] -> getCategories());
+    }
 
 }
