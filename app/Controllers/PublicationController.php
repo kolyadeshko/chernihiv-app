@@ -74,17 +74,16 @@ class PublicationController extends Controller
                 "answerData" => $data
             ];
         }
-        $this->request->setSession("answer", $answer);
+        $this -> session -> setSessionKey("answer", $answer);
         header("Location:/publication-add-answer");
 
     }
 
     public function publicationAddAnswer()
     {
-        session_start();
-        if (!isset($_SESSION["answer"])) header("Location:/");
-        $answerData = $_SESSION["answer"];
-//        unset($_SESSION['answer']);
+        $answerData = $this -> session -> getSessionByKey("answer");
+        if (!$answerData) header("Location:/");
+        $this -> session -> unsetSession(["answer"]);
         return $this->renderer->render(
             $this->request,
             "publication-add-answer",

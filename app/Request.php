@@ -42,11 +42,5 @@ class Request
     public function getFiles(){
         return $_FILES;
     }
-    public function setSession($key,$value){
-        session_start();
-        $_SESSION[$key] = $value;
-    }
-    public function unsetSession(){
-        session_unset();
-    }
+
 }

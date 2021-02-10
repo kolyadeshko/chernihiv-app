@@ -13,13 +13,15 @@ class Controller
     protected $request;
     protected $renderer;
     protected $models;
+    protected $session;
 
     public function __construct(
         Request $request,
         Renderer $renderer,
         Publications $publications,
         Category $category,
-        Users $users
+        Users $users,
+        Session $session
     )
     {
         $this->models = [
@@ -29,5 +31,6 @@ class Controller
         ];
         $this->request = $request;
         $this->renderer = $renderer;
+        $this -> session = $session;
     }
 }

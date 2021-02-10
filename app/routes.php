@@ -81,6 +81,15 @@ $routes = [
             "methodName" => "checkUser"
         ],
         "description" => "Асинхронная проверка данного значения по данному полю в таблице users в базе данных"
+    ],
+    [
+        "method" => "POST",
+        "path" => "/register-data-processing",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "registerDataProcessing"
+        ],
+        "description" => "Функция которая обрабатывает данные с формы регистрации"
     ]
 ];
 

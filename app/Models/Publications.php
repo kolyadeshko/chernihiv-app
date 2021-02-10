@@ -16,7 +16,7 @@ class Publications extends MySqlModel
         $sql = "SELECT
                             publications.*,
                             category.categoryname,
-                            users.username,
+                            users.nickname,
                             users.isadmin
                         FROM (
                             (

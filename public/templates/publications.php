@@ -28,7 +28,7 @@
 
                             <a href="/user/<?= $v->userid; ?>" class="p-item__user">
                                 <div class="p-item__title">Автор:</div>
-                                <?php echo $v->username; ?>
+                                <?php echo $v->nickname; ?>
                             </a>
                             <a href="/publication/<?= $v->id; ?>" class="p-item__button">Ближе</a>
                         </div>

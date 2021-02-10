@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<?php  include "includes/header.php"?>
+<?php include "includes/header.php" ?>
 <div class="register">
     <div class="register__container">
         <div class="register__row">
@@ -22,7 +22,21 @@
             </div>
             <div class="register__body">
 
-                <form id="register__form" action="" method="post" @submit="checkForm" novalidate>
+                <form id="register__form" action="/register-data-processing" method="post" @submit="checkForm"
+                      novalidate>
+                    <?php if ($serverErrors): ?>
+                        <?php foreach ($serverErrors as $key => $value) : ?>
+                            <div class="form__server-errors">
+                                <div class="form__errors">
+                                    <ul class="errors__list">
+                                        <li class="errors_item">
+                                            <?= $value; ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                     <div class="form__item">
                         <div class="form__subtitle">
                             <label for="form__nickname">Ваш ник: </label>
@@ -86,8 +100,12 @@
                                     id="form__password"
 
                             >
-                            <div id="password__reliability"  v-if="passwordReliability.reliability && passwordData.valid">
-                                Надежность: <div id="password__reliability-text" :class="passwordReliability.relClass">{{ passwordReliability.reliability }}</div>
+                            <div id="password__reliability"
+                                 v-if="passwordReliability.reliability && passwordData.valid">
+                                Надежность:
+                                <div id="password__reliability-text" :class="passwordReliability.relClass">
+                                    {{ passwordReliability.reliability }}
+                                </div>
                             </div>
                             <div id="password__show">Показать пароль: <input v-model="passwordData.showPassword"
                                                                              type="checkbox"></div>

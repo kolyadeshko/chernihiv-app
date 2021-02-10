@@ -367,29 +367,30 @@ body, body * {
 /* ФОРМА ПУБЛИКАЦИИ */
 
 .register{
-    font-family: Arial;
+    font-family:"Noto Sans";
+    font-weight: bold;
 }
 .register__container{
-    width: 50%;
+    width: 60%;
     margin:0 auto;
 }
 .register__row{
     display: flex;
+    background-color: #f5f5f5;
     flex-direction: column;
+    padding: 15px;
     justify-content: center;
-    padding:20px;
-    background-color: blanchedalmond;
-    box-shadow: 1px 1px 1px;
-    border-radius: 5px;
+    border-right: 20px ridge rgba(58, 199, 84, 0.8);
+    border-radius: 0px 19px 17px 0px;
 }
 .register__title{
     text-align: center;
     font-weight: bold;
-    font-size:25px;
+    font-size:29px;
     padding:10px 0;
 }
 .register__body{
-    padding:10px 0;
+    padding:15px;
 }
 #register__form{
 
@@ -407,7 +408,7 @@ body, body * {
     border-radius: 5px;
     font-size: 18px;
     width: 100%;
-    transition: width 0.2s;
+    padding:5px;
 }
 
 .form__input.valid>input{
@@ -418,8 +419,8 @@ body, body * {
 }
 #password__reliability-text{
     display: inline;
-    font-family: "Impact";
-    font-size: 20px;
+    font-family: "Akademische schmalfette";
+    font-size: 25px;
     text-shadow: 0 0 2px black;
 }
 #password__reliability-text.low{
@@ -568,9 +569,10 @@ body, body * {
 }
 
 @media (max-width: 768px) {
-    .publication-add__container{
+    .publication-add__container,.register__container{
         width: 80%;
     }
+
 }
 
 
