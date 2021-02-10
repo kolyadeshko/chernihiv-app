@@ -90,6 +90,15 @@ $routes = [
             "methodName" => "registerDataProcessing"
         ],
         "description" => "Функция которая обрабатывает данные с формы регистрации"
+    ],
+    [
+        "method" => "GET",
+        "path" => "/register-answer",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "registerAnswer"
+        ],
+        "description" => "Ответ на регистрацию"
     ]
 ];
 

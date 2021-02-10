@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Controller;
+use App\Session;
 use App\Uploader\ImageUploader;
 
 class PublicationController extends Controller
@@ -81,9 +82,8 @@ class PublicationController extends Controller
 
     public function publicationAddAnswer()
     {
-        $answerData = $this -> session -> getSessionByKey("answer");
+        $answerData = $this -> session -> getSessionByKey("answer",Session::$UNSET_AFTER_GET_KEY);
         if (!$answerData) header("Location:/");
-        $this -> session -> unsetSession(["answer"]);
         return $this->renderer->render(
             $this->request,
             "publication-add-answer",

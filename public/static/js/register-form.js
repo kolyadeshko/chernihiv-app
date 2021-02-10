@@ -17,7 +17,8 @@ const form = new Vue({
             errors: [],
             valid: null,
             showPassword : false,
-        }
+        },
+        description : ""
     },
     methods: {
         checkForm: function (e) {

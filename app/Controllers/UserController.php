@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Controller;
+use App\Session;
 use App\Validators\UserValidator;
 
 class UserController extends Controller
@@ -12,7 +13,6 @@ class UserController extends Controller
     public function userRegister(){
 
         $serverErrors = $this -> getServerErrors();
-
         return $this -> renderer -> render(
             $this -> request,
             "user-register",
@@ -22,9 +22,11 @@ class UserController extends Controller
         );
     }
     private function getServerErrors(){
-        $serverErrors = $this -> session -> getSessionByKey('serverErrors');
-        $this -> session -> unsetSession(['serverErrors']);
-        return $serverErrors;
+        return $this -> session -> getSessionByKey(
+            'serverErrors',
+            Session::$UNSET_AFTER_GET_KEY
+        );
+
     }
 
     public function checkUser(){
@@ -38,17 +40,47 @@ class UserController extends Controller
 
     public function registerDataProcessing(){
         $registerData = $this -> request -> getPostParams();
+        if (empty($registerData)) header("Location:/");
         $validator = new UserValidator(
             $registerData,
             $this -> models['users']
         );
         if (!($validator -> isValid())){
             $errorList = $validator -> getErrorList();
-            session_start();
-            $_SESSION['serverErrors'] = $errorList;
-            header("Location:/register");
+            $this -> session ->setSessionKey(
+                "serverErrors",
+                $errorList
+            );
+            return header("Location:/register");
         }
-        return "Все норм";
+        $registerData['password'] = $this -> getHashPassword(
+            $registerData['password']
+        );
+        $this -> models['users'] -> registerUser($registerData);
+        $this -> session -> setSessionKey(
+            "successRegister",
+            $registerData
+        );
+        return header("Location:/register-answer");
+    }
+    public function registerAnswer(){
+        $answer = $this -> session -> getSessionByKey(
+            "successRegister",
+            Session::$UNSET_AFTER_GET_KEY
+        );
+        if (!$answer) header("Location:/");
+        return $this -> renderer -> render(
+            $this -> request,
+            "register-answer",
+            [
+                'answer' => $answer
+            ]
+        );
+
+    }
+
+    private function getHashPassword($password){
+        return md5($password);
     }
 
 }

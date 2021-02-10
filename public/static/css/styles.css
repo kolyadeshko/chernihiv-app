@@ -316,7 +316,12 @@ body, body * {
     font-size: 30px;
     font-family: AireExterior;
 }
-
+.answer__bold{
+    display: inline;
+    color:black;
+    font-weight: bolder;
+    text-decoration: none;
+}
 .answer__text {
     text-align: center;
     font-size: 23px;

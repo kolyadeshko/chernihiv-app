@@ -116,6 +116,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form__item">
+                        <div class="form__subtitle">
+                            <label for="form__description">Немного о Вас(необязательно):</label>
+                        </div>
+                        <div class="form__input">
+                                <textarea
+                                        name="aboutme"
+                                        v-model="description"
+                                        id="form__description"
+                                >
+                                </textarea>
+                        </div>
+
+                    </div>
                     <div class="form__button">
                         <input type="submit" v-bind:disabled="!validForm">
                     </div>
