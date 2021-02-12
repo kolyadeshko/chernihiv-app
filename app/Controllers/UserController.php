@@ -45,7 +45,7 @@ class UserController extends Controller
     public function registerDataProcessing()
     {
         $registerData = $this->request->getPostParams();
-        if (empty($registerData)) header("Location:/");
+        if (empty($registerData)) return header("Location:/");
         $validator = new UserValidator(
             $registerData,
             $this->models['users']
@@ -100,7 +100,7 @@ class UserController extends Controller
             return json_encode(["Пользователь с таким ником не зарегестрирован"]);
         }
         $user = $checkNickname[0];
-        if (!$this -> checkPassword($data['password'],$user['password'])){
+        if (!$this->checkPassword($data['password'], $user['password'])) {
             return json_encode(['Неверный пароль!']);
         }
         return "valid";
@@ -109,7 +109,7 @@ class UserController extends Controller
 
     private function checkPassword($password, $hashPassword)
     {
-        if ($this -> getHashPassword($password) === $hashPassword){
+        if ($this->getHashPassword($password) === $hashPassword) {
             return true;
         }
         return false;
@@ -125,6 +125,20 @@ class UserController extends Controller
                 "errors" => false
             ]
         );
+    }
+
+    public function loginDataProcessing()
+    {
+        $nickname = $this->request->getPostParams()['nickname'];
+        if (!isset($nickname)) {
+            return header("Location:/login");
+        }
+        $user = $this -> models['users'] -> getUserByNickname($nickname);
+        $this -> session -> setSessionKey(
+            "authUser",
+            $user
+        );
+        return header("Location:/");
     }
 
 

@@ -7,20 +7,22 @@ namespace App;
 class Authentication
 {
     protected $session;
-    public function __construct()
+    private $userData;
+    public function __construct(Session $session)
     {
-        $this -> session = $_SESSION;
+        $this -> session = $session;
+        $this -> userData = $this -> session -> getSessionByKey("authUser");
     }
-    public function getSessionData(){
-        return $this -> session;
-    }
-    public function getUser(){
-        return "Kolya deshko";
+    public function getUserData(){
+        $allowedUserData = $this -> userData;
+        unset($allowedUserData['password']);
+        return $allowedUserData;
     }
     public function isAuth(){
-        return true;
+        if ($this -> userData){
+            return true;
+        }
+        return false;
     }
-    public function getUserId(){
-        return 1;
-    }
+
 }

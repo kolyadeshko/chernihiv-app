@@ -22,4 +22,10 @@ class Users extends MySqlModel
         $stmt = $this -> connection -> prepare($insertExpression);
         $stmt -> execute($userData);
     }
+    public function getUserByNickname($nickname){
+        $sql = "SELECT * FROM `users` WHERE `nickname`=:nickname";
+        $stmt = $this -> connection -> prepare($sql);
+        $stmt -> execute(['nickname' => $nickname]);
+        return $stmt -> fetch(\PDO::FETCH_ASSOC);
+    }
 }

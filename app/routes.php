@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 $routes = [
     [
         "method" => 'GET',
@@ -6,7 +6,7 @@ $routes = [
         "handler" => [
             "className" => "Mainpage",
             "methodName" => "getPage"
-            ],
+        ],
         "description" => "Главная страница сайта"
     ],
     [
@@ -117,7 +117,16 @@ $routes = [
             "methodName" => "checkLogin"
         ],
         "description" => "Асинхронная проверка данный при авторизации"
-    ]
+    ],
+    [
+        "method" => "POST",
+        "path" => "/login-data-processing",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "loginDataProcessing"
+        ],
+        "description" => "Функция которая вызывается когда пользователь удачно зашел на аккаунт"
+    ],
 ];
 
 return $routes;

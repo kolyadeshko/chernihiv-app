@@ -65,7 +65,7 @@ class PublicationController extends Controller
                 $postParams,
                 [
                     "photo" => "/publications/{$imageUploader->getImageName()}",
-                    "userid" => $this->request->auth->getUserId()
+                    "userid" => $this->request->auth->getUserData()['id']
                 ]
             );
             $imageUploader->upload();

@@ -10,6 +10,7 @@
 </head>
 <body>
 <?php  include "includes/header.php"?>
+
 <h1>Главная страница</h1>
 <script src="../static/js/scripts.js"></script>
 </body>
