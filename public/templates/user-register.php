@@ -14,28 +14,28 @@
 </head>
 <body>
 <?php include "includes/header.php" ?>
-<div class="register">
-    <div class="register__container">
-        <div class="register__row">
-            <div class="register__title">
+<div class="auth">
+    <div class="auth__container">
+        <div class="auth__row">
+            <div class="auth__title">
                 Регистрация
             </div>
-            <div class="register__body">
+            <div class="auth__body">
 
                 <form id="register__form" action="/register-data-processing" method="post" @submit="checkForm"
                       novalidate>
                     <?php if ($serverErrors): ?>
-                        <?php foreach ($serverErrors as $key => $value) : ?>
-                            <div class="form__server-errors">
-                                <div class="form__errors">
-                                    <ul class="errors__list">
+                        <div class="form__server-errors">
+                            <div class="form__errors">
+                                <ul class="errors__list">
+                                    <?php foreach ($serverErrors as $key => $value) : ?>
                                         <li class="errors_item">
                                             <?= $value; ?>
                                         </li>
-                                    </ul>
-                                </div>
+                                    <?php endforeach; ?>
+                                </ul>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
                     <?php endif; ?>
                     <div class="form__item">
                         <div class="form__subtitle">

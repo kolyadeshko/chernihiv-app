@@ -99,6 +99,24 @@ $routes = [
             "methodName" => "registerAnswer"
         ],
         "description" => "Ответ на регистрацию"
+    ],
+    [
+        "method" => "GET",
+        "path" => "/login",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "loginForm"
+        ],
+        "description" => "Форма авторизации"
+    ],
+    [
+        "method" => "GET",
+        "path" => "/check-login",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "checkLogin"
+        ],
+        "description" => "Асинхронная проверка данный при авторизации"
     ]
 ];
 
