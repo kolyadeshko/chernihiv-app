@@ -1,15 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <title>Ответ</title>
-</head>
-<body>
-<?php include "includes/header.php" ?>
 
 <div id="answer">
     <div class="container">
@@ -23,8 +11,8 @@
                 <div class="answer__text">
                     Пользователь с именем
                     <span class="answer__bold">
-                        <?= $answer['nickname'] ?>
-                    </span> и <span class="answer__bold"> <?= $answer['email'] ?></span>
+                    {{ answer.nickname }}
+                    </span> и <span class="answer__bold"> {{ answer.email }}</span>
                     успешно зарегестрирован! Теперь вы можете <a href="/login" class="answer__bold">авторизоваться</a>
                     и получить к многим функциям, например - добавление записи.
                 </div>
@@ -41,7 +29,11 @@
         </div>
     </div>
 </div>
-
-<script src="../static/js/scripts.js"></script>
-</body>
-</html>
+<script>
+    new Vue({
+        el : "#answer",
+        data : {
+            answer : DATA.answer
+        }
+    })
+</script>

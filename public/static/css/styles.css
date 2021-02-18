@@ -83,16 +83,77 @@ body, body * {
 .navbar__logo {
     height: 50px;
 }
-
-.navbar__logo:hover {
-
-}
-
 .navbar__logo img {
     display: block;
     max-height: 100%;
 }
 
+.navbar__body{
+    flex: 0 0 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar__body *{
+    color:#ffffff;
+    font-size: 20px;
+    font-family: AireExterior;
+
+}
+.navbar__links{
+    display: flex;
+}
+.navbar__link{
+    position: relative;
+    padding:10px;
+    cursor: pointer;
+}
+.dropdown{
+    position: absolute;
+    top:100%;
+    left: 0;
+    background-color: red;
+    padding:15px;
+    width: 120%;
+    display: none;
+}
+.dropdown.active{
+    display: block;
+}
+.dropdown>a{
+    display: block;
+    margin: 10px 0 0 0;
+}
+.navbar__user-links{
+
+}
+.user-links{
+    height: 100%;
+}
+.user-links__user{
+    padding:10px;
+}
+.navbar__auth-links{
+
+}
+.auth-links{
+    display: flex;
+    justify-content: space-around;
+}
+.auth-links__link{
+    display: block;
+    padding: 10px;
+    background-color: white;
+    color:red;
+    margin : 0 10px;
+    border: 2px solid #b80000;
+    transition: background-color 0.2s;
+    border-radius: 4px;
+}
+.auth-links__link:hover{
+    background-color: rgba(58, 199, 84, 0.8);
+    color:white;
+}
 .container {
     max-width: 90%;
     margin: 0 auto;
@@ -122,7 +183,7 @@ body, body * {
 
 }
 
-.categorylist {
+#categorylist {
 
 }
 
@@ -203,7 +264,7 @@ body, body * {
 
 /* ПУБЛИКАЦИИ */
 
-.publications {
+#publications {
 
 }
 

@@ -1,20 +1,7 @@
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <title>Ответ</title>
-</head>
-<body>
-<?php  include "includes/header.php"?>
-
+<title>Ответ</title>
 <div id="answer">
     <div class="container">
-        <?php if ($answerData["isValid"]): ?>
+        <template v-if="answerData.isValid">
             <div class="answer__row">
                 <div class="answer__logo">
                     <img src="<?= STATIC_IMG . "/success.png"; ?>" alt="">
@@ -34,7 +21,7 @@
             <div class="answer__content">
                 <div class="answer__publication">
                     <div class="answer__photo">
-                        <img src="<?= MEDIA . $answerData['answerData']['photo'] ?>" alt="">
+                        <img :src="'../media' + answerData.answerData.photo" alt="">
                     </div>
                 </div>
                 <div class="answer__a-links">
@@ -45,7 +32,9 @@
                     </div>
                 </div>
             </div>
-        <?php elseif (!$answerData["isValid"]): ?>
+        </template>
+
+        <template v-else-if="!answerData.isValid">
             <div class="answer__row">
                 <div class="answer__logo">
                     <img src="<?= STATIC_IMG . "/unsuccess.png"; ?>" alt="">
@@ -55,9 +44,9 @@
                     </div>
                     <div class="answer__text">
                         <ul>
-                            <?php foreach ($answerData["answerData"] as $k=>$v): ?>
-                                <li><?= $v ?></li>
-                            <?php endforeach; ?>
+                            <li v-for="error in answerData.answerData">
+                                {{ error }}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -71,9 +60,14 @@
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+        </template>
     </div>
 </div>
-<script src="../static/js/scripts.js"></script>
-</body>
-</html>
+<script>
+    new Vue({
+        el: "#answer",
+        data: {
+            answerData: DATA.answerData
+        }
+    });
+</script>

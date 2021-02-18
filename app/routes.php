@@ -4,8 +4,8 @@ $routes = [
         "method" => 'GET',
         "path" => "/[mainpage]",
         "handler" => [
-            "className" => "Mainpage",
-            "methodName" => "getPage"
+            "className" => "MainpageController",
+            "methodName" => "getMainpage"
         ],
         "description" => "Главная страница сайта"
     ],
@@ -127,6 +127,16 @@ $routes = [
         ],
         "description" => "Функция которая вызывается когда пользователь удачно зашел на аккаунт"
     ],
+    [
+        "method" => "GET",
+        "path" => "/header-user-information",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "headerUserInformation"
+        ],
+        "description" => "Данные об авторизации для хэдера"
+    ],
+
 ];
 
 return $routes;

@@ -30,11 +30,11 @@ const loginForm = new Vue({
         checkDB: async function () {
             this.curtain = true;
             let url = "/check-login?nickname=" + this.nickname + "&password=" + this.password;
-            let response = await axios.get(url);
-            console.log(response.data);
+            let response = await fetch(url);
+            response = await response.text();
             this.curtain = false;
-            if (!(response.data === "valid")) {
-                this.errors = response.data;
+            if (!(response === "valid")) {
+                this.errors = response;
             }
         },
         submitForm: function () {

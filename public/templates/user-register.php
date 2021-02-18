@@ -1,19 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <title>Регистрация пользователя</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <meta http-equiv="Cache-Control" content="no-cache">
-
-</head>
-<body>
-<?php include "includes/header.php" ?>
 <div class="auth">
     <div class="auth__container">
         <div class="auth__row">
@@ -24,19 +8,18 @@
 
                 <form id="register__form" action="/register-data-processing" method="post" @submit="checkForm"
                       novalidate>
-                    <?php if ($serverErrors): ?>
+                    <template v-if="serverErrors">
                         <div class="form__server-errors">
                             <div class="form__errors">
                                 <ul class="errors__list">
-                                    <?php foreach ($serverErrors as $key => $value) : ?>
-                                        <li class="errors_item">
-                                            <?= $value; ?>
+
+                                        <li class="errors_item" v-for="error in serverErrors">
+                                            {{ error }}
                                         </li>
-                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    </template>
                     <div class="form__item">
                         <div class="form__subtitle">
                             <label for="form__nickname">Ваш ник: </label>
@@ -139,7 +122,4 @@
         </div>
     </div>
 </div>
-<script src="../static/js/scripts.js"></script>
 <script src="../static/js/register-form.js"></script>
-</body>
-</html>

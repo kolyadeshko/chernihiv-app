@@ -12,10 +12,10 @@ const publicationAddForm = new Vue({
         previewImage : null
     },
     mounted : function () {
-        axios.get("/get-category-list").then(response => {
-            console.log(response.data);
-            this.categoryList = response.data;
-        });
+        fetch("/get-category-list").then(response => response.json())
+            .then(data => {
+                this.categoryList = data;
+            });
     },
     methods : {
         uploadImage : function (e){

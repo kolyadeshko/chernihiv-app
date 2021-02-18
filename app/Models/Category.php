@@ -26,7 +26,7 @@ class Category extends MySqlModel
                 ORDER BY pub_count DESC
             ";
         $stmt = $this->connection -> query($sql);
-        return $stmt -> fetchAll(\PDO::FETCH_CLASS);
+        return $stmt -> fetchAll(\PDO::FETCH_ASSOC);
     }
 
 

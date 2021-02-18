@@ -1,6 +1,7 @@
 const form = new Vue({
     el: "#register__form",
     data: {
+        serverErrors : DATA.serverErrors,
         nickname: "",
         nicknameData: {
             errors: [],
@@ -54,7 +55,8 @@ const form = new Vue({
             errorList.push(message);
         },
         checkDB: async function (field, value) {
-            return await axios.get(`/check-user-register?${field}=${value}`);
+            return await fetch(`/check-user-register?${field}=${value}`)
+                .then(response => response.text());
         }
 
     },
@@ -84,7 +86,7 @@ const form = new Vue({
 
 
             this.checkDB("nickname", this.nickname).then(response => {
-                if (response.data === "+") {
+                if (response === "+") {
                     this.addError(1, `Ник ${this.nickname} уже занят!`)
                     return;
                 }
@@ -108,7 +110,7 @@ const form = new Vue({
                 return;
             }
             this.checkDB("email",this.email).then(response=>{
-                if (response.data === "+") {
+                if (response === "+") {
                     this.addError(2, `Email ${this.email} уже используется другим пользователем!`)
                     return;
                 }

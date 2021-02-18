@@ -97,11 +97,11 @@ class UserController extends Controller
         $data = $this->request->getGetParams();
         $checkNickname = $this->models['users']->getByField("nickname", $data['nickname']);
         if (empty($checkNickname)) {
-            return json_encode(["Пользователь с таким ником не зарегестрирован"]);
+            return "Пользователь с таким ником не зарегестрирован";
         }
         $user = $checkNickname[0];
         if (!$this->checkPassword($data['password'], $user['password'])) {
-            return json_encode(['Неверный пароль!']);
+            return 'Неверный пароль!';
         }
         return "valid";
 
@@ -133,13 +133,27 @@ class UserController extends Controller
         if (!isset($nickname)) {
             return header("Location:/login");
         }
-        $user = $this -> models['users'] -> getUserByNickname($nickname);
-        $this -> session -> setSessionKey(
+        $user = $this->models['users']->getUserByNickname($nickname);
+        $this->session->setSessionKey(
             "authUser",
             $user
         );
         return header("Location:/");
     }
 
+    public function headerUserInformation()
+    {
+        $auth = $this -> request -> auth;
+        $res =
+            [
+                "isAuth" => $auth -> isAuth(),
+                "userdata" =>
+                [
+                    "id" => $auth -> getUserData()['id'],
+                    "nickname" => $auth -> getUserData()['nickname']
+                ]
+            ];
+        return json_encode($res);
+    }
 
 }

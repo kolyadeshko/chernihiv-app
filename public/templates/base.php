@@ -6,10 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../static/css/styles.css">
-    <title><?= $title ?></title>
+    <script src="../static/js/vue.js"></script>
 </head>
 <body>
 <?php  include "includes/header.php"?>
-<script src="../static/js/scripts.js"></script>
+<script> let DATA  = <?= $DATA ?></script>
+<?php include "$templateName.php" ?>
 </body>
 </html>
