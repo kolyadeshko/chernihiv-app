@@ -1,10 +1,10 @@
 const loginForm = new Vue({
     el: "#login__form",
     data: {
-        nickname: "",
+        nickname: DATA.rememberedUser,
         password: "",
         curtain: false,
-        errors: []
+        errors: [],
     },
     methods: {
         checkLogin: async function (e) {

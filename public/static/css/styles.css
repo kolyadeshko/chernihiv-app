@@ -574,6 +574,17 @@ body, body * {
 .form__option>input{
 
 }
+.remember-me{
+
+}
+.remember-me__body{
+    display: flex;
+    align-items: center;
+}
+.remember-me__text{
+    margin-right: 10px;
+}
+.remember-me__input
 
 
 /*Форма публикации*/

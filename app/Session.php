@@ -38,5 +38,20 @@ class Session
             }
         }
     }
+    public function rememberUser($nickname){
+
+        setcookie(
+            "rememberedUser",
+            $nickname,
+            time() + (86400 * 30),
+            "/"
+        );
+    }
+    public function getRememberedUser(){
+        if (isset($_COOKIE["rememberedUser"])){
+            return $_COOKIE["rememberedUser"];
+        }
+        return false;
+    }
 }
 

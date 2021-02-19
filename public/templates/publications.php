@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-
 <div id="publications">
     <div class="publications__body">
         <div class="publications__row">

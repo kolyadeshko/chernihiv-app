@@ -122,7 +122,8 @@ class UserController extends Controller
             $this->request,
             "login-form",
             [
-                "errors" => false
+                "errors" => false,
+                "rememberedUser" => $this -> session -> getRememberedUser()
             ]
         );
     }
@@ -133,6 +134,10 @@ class UserController extends Controller
         if (!isset($nickname)) {
             return header("Location:/login");
         }
+        // запоминаем пользователя
+        $rememberMe = $this -> request -> getPostParams()['remember-me'];
+        if ($rememberMe) $this -> session -> rememberUser($nickname);
+
         $user = $this->models['users']->getUserByNickname($nickname);
         $this->session->setSessionKey(
             "authUser",
