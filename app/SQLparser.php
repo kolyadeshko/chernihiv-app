@@ -31,7 +31,8 @@ class SQLparser
                 $orderBy = $this->getOrderBy($value);
             } elseif ($key === "ordering") {
                 $ordering = $this->getOrdering($value);
-            } else {
+            }
+            else if($key !== "limit"){
                 $condition = $this->getOther($key, $value);
             }
             if ($condition) array_push($conditions, $condition);
@@ -41,7 +42,7 @@ class SQLparser
         $whereSting = "";
         if (!empty($conditions)) $whereSting =
             " WHERE " . join(" AND ", $conditions);
-        return $whereSting . $orderingString;
+        return $whereSting . $orderingString ;
     }
 
     // Метод который возвращает выражения типа id =5 или names IN ("Kolya","Oleg")
@@ -54,6 +55,19 @@ class SQLparser
         } else {
             return "$key = :$key";
         }
+    }
+
+    public function getLimit(&$sqlParams){
+        $returnExpression = " LIMIT ";
+        $limit = $sqlParams["limit"];
+        unset($sqlParams['limit']);
+        if (is_string($limit)) return $returnExpression . $limit;
+        if (is_array($limit)){
+            $startPosition = $limit[0];
+            $limit = $limit[1];
+            return $returnExpression . "$startPosition , $limit";
+        }
+        return "";
     }
 
     //метод который возвращает выражение сортировки

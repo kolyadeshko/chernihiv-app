@@ -108,6 +108,9 @@ body, body * {
     padding:10px;
     cursor: pointer;
 }
+.navbar__link:hover>.dropdown{
+    display: block;
+}
 .dropdown{
     position: absolute;
     top:100%;
@@ -131,6 +134,7 @@ body, body * {
     height: 100%;
 }
 .user-links__user{
+    position: relative;
     padding:10px;
 }
 .navbar__auth-links{
@@ -342,6 +346,34 @@ body, body * {
 }
 
 .p-item__button:hover {
+    background-color: white;
+    color: red;
+}
+#publications-pagination{
+
+}
+.pagination{
+
+}
+.pagination__body{
+    margin:0 auto;
+}
+.pagination__row{
+    display: flex;
+    justify-content: center;
+}
+.pagination__item{
+    background-color: red;
+    color: white;
+    padding:10px;
+    margin: 0 10px;
+    display: block;
+    font-size: 20px;
+    border: 1px dashed;
+    border-radius: 1px;
+    font-family: "Akademische schmalfette";
+}
+.pagination__item.active{
     background-color: white;
     color: red;
 }

@@ -156,4 +156,9 @@ class UserController extends Controller
         return json_encode($res);
     }
 
+    public function logout(){
+        $this -> request -> auth -> logoutUser();
+        return header("Location:/");
+    }
+
 }

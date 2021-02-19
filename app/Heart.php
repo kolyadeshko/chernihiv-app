@@ -5,6 +5,9 @@ namespace App;
 require '../vendor/autoload.php';
 
 
+$injector = include "dependencies.php";
+
+$request = $injector -> make("\App\Request");
 
 // FastRoute
 // https://github.com/nikic/FastRoute
@@ -20,9 +23,7 @@ $dispatcher = \FastRoute\simpleDispatcher(
         }
     }
 );
-$injector = include "dependencies.php";
 
-$request = $injector -> make("\App\Request");
 
 // dispatch() возвращает массив, первый элемент содержит
 // код состояния. Это одно из Dispatcher::NOT_FOUND,
@@ -48,7 +49,6 @@ $routeInfo = $dispatcher -> dispatch(
 
 )*/
 
-
 switch ($routeInfo[0]){
     case \FastRoute\Dispatcher::NOT_FOUND:
         $content = "404 страницу не найдено";
@@ -57,6 +57,12 @@ switch ($routeInfo[0]){
         $content = "Метод не разрешен";
         break;
     case \FastRoute\Dispatcher::FOUND:
+        if (in_array("loginRequire",$routeInfo[1])){
+            if (!$request -> auth -> isAuth()){
+                header("Location:/login");
+                die();
+            }
+        }
         $className = "\App\Controllers\\".$routeInfo[1]["className"];
         $method = $routeInfo[1]["methodName"];
         $vars = $routeInfo[2];

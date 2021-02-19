@@ -18,6 +18,9 @@ class Authentication
         unset($allowedUserData['password']);
         return $allowedUserData;
     }
+    public function logoutUser(){
+        $this -> session -> unsetSession(["authUser"]);
+    }
     public function isAuth(){
         if ($this -> userData){
             return true;

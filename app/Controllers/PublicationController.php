@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Controller;
+use App\Paginator;
 use App\Session;
 use App\Uploader\ImageUploader;
 
@@ -13,17 +14,22 @@ class PublicationController extends Controller
 
     public function publicationsList($params = [])
     {
-        $sqlParams = [];
+        $sqlParams = $this->request->getGetParams();
         if (isset($params["categoryid"])) {
             $sqlParams["categoryid"] = $params["categoryid"];
         }
-        $publications = $this->models["publications"]->getPublicationsByCategory($sqlParams);
+        $this->getPagination($sqlParams, 5);
+
+        $res = $this->models["publications"]->getPublicationsByCategory($sqlParams);
         return $this->renderer->render(
             $this->request,
             "publications",
             [
-                "title" => "Публикации",
-                "publications" => $publications
+                "publications" => $res['publications'],
+                "paginationInfo" => [
+                    "count" => $res['pubCount'],
+                    "pageCount" => ceil($res['pubCount'] / 5)
+                ]
             ]
         );
     }
@@ -68,14 +74,14 @@ class PublicationController extends Controller
                 "answerData" => $data
             ];
         }
-        $this -> session -> setSessionKey("answer", $answer);
+        $this->session->setSessionKey("answer", $answer);
         header("Location:/publication-add-answer");
 
     }
 
     public function publicationAddAnswer()
     {
-        $answerData = $this -> session -> getSessionByKey("answer",Session::$UNSET_AFTER_GET_KEY);
+        $answerData = $this->session->getSessionByKey("answer", Session::$UNSET_AFTER_GET_KEY);
         if (!$answerData) header("Location:/");
         return $this->renderer->render(
             $this->request,

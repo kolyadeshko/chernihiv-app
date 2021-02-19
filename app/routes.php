@@ -32,7 +32,8 @@ $routes = [
         "path" => "/publication-add",
         "handler" => [
             "className" => "PublicationController",
-            "methodName" => "publicationAdd"
+            "methodName" => "publicationAdd",
+            "loginRequire"
         ],
         "description" => "Форма добавления публикации"
     ],
@@ -41,7 +42,8 @@ $routes = [
         "path" => "/publication-add-data-processing",
         "handler" => [
             "className" => "PublicationController",
-            "methodName" => "publicationAddDataProcessing"
+            "methodName" => "publicationAddDataProcessing",
+            "loginRequire"
         ],
         "description" => "Функция которая обрабатывает данные с формы публикации"
     ],
@@ -50,7 +52,8 @@ $routes = [
         "path" => "/publication-add-answer",
         "handler" => [
             "className" => "PublicationController",
-            "methodName" => "publicationAddAnswer"
+            "methodName" => "publicationAddAnswer",
+            "loginRequire"
         ],
         "description" => "Ответ после отправки формы публикации"
     ],
@@ -69,7 +72,8 @@ $routes = [
         "path" => "/get-category-list",
         "handler" => [
             "className" => "CategoryController",
-            "methodName" => "categoriesForPublicationAdd"
+            "methodName" => "categoriesForPublicationAdd",
+            "loginRequire"
         ],
         "description" => "Асинхронный запрос списка публикаций для формы добавления публикации"
     ],
@@ -136,6 +140,18 @@ $routes = [
         ],
         "description" => "Данные об авторизации для хэдера"
     ],
+    [
+        "method" => "GET",
+        "path" => "/logout",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "logout",
+            "loginRequire"
+
+        ],
+        "description" => "Разлогиниться"
+    ],
+
 
 ];
 

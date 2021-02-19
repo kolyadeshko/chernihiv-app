@@ -41,4 +41,10 @@ class MySqlModel implements Model
         return $stmt->fetchAll(\PDO::FETCH_CLASS);
     }
 
+    public function getRowsCount(){
+        return $this -> connection -> query(
+            "SELECT COUNT(*) as count FROM {$this->tablename}"
+        ) -> fetch()['count'];
+    }
+
 }
