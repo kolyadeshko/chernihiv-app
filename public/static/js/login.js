@@ -1,7 +1,7 @@
 const loginForm = new Vue({
     el: "#login__form",
     data: {
-        nickname: DATA.rememberedUser,
+        nickname: DATA.rememberedUser ? DATA.rememberedUser : "",
         password: "",
         curtain: false,
         errors: [],

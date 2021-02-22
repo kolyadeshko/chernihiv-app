@@ -589,8 +589,7 @@ body, body * {
 
 /*Форма публикации*/
 .publication-add{
-    font-family: "Noto Sans";
-    font-weight: bold;
+
 }
 .publication-add__container{
     width: 60%;
@@ -604,6 +603,10 @@ body, body * {
     justify-content: center;
     border-right: 20px ridge rgba(58, 199, 84, 0.8);
     border-radius: 0px 19px 17px 0px;
+}
+.publication-add__row > *{
+    font-family: "Noto Sans";
+    font-weight: bold;
 }
 .publication-add__title{
     text-align: center;
@@ -692,7 +695,6 @@ body, body * {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5) url("../img/load.gif") center no-repeat;
-
 }
 
 
