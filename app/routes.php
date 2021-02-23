@@ -57,6 +57,16 @@ $routes = [
         ],
         "description" => "Ответ после отправки формы публикации"
     ],
+    [
+        "method" => 'GET',
+        "path" => "/publication/{id:\d+}",
+        "handler" => [
+            "className" => "PublicationController",
+            "methodName" => "publicationDetail",
+            "loginRequire"
+        ],
+        "description" => "Информация об отдельно взятой публикации"
+    ],
 
     [
         "method" => "GET",

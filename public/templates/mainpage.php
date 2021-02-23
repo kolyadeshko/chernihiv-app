@@ -1,7 +1,5 @@
 <title>Главная страница</title>
 <link rel="stylesheet" href="../static/css/mainpage.css">
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-
 <div id="mainpage">
     <div class="mainpage__body">
         <div class="mainpage__row">
@@ -57,4 +55,3 @@
     </div>
 </div>
 <script src="../static/js/mainpage.js"></script>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

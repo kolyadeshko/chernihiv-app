@@ -22,11 +22,11 @@ class MySqlModel implements Model
     public function getById($id)
     {
         $stmt = $this->connection->prepare(
-            "SELECT*FROM $this->tablename WHERE id=$id"
+            "SELECT*FROM $this->tablename WHERE id=:id"
 
         );
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_CLASS)[0];
+        $stmt->execute(['id'=>$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC)[0];
 
     }
 

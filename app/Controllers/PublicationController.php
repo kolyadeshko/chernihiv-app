@@ -14,13 +14,9 @@ class PublicationController extends Controller
 
     public function publicationsList($params = [])
     {
-        $sqlParams = $this->request->getGetParams();
-        if (isset($params["categoryid"])) {
-            $sqlParams["categoryid"] = $params["categoryid"];
-        }
+        $sqlParams = array_merge($this->request->getGetParams(),$params);
         $this->getPagination($sqlParams, 5);
-
-        $res = $this->models["publications"]->getPublicationsByCategory($sqlParams);
+        $res = $this->models["publications"]->getPublications($sqlParams);
         return $this->renderer->render(
             $this->request,
             "publications",
@@ -93,4 +89,15 @@ class PublicationController extends Controller
     }
 
 
+    public function publicationDetail($params){
+        $id = $params['id'];
+        $publication = $this -> models['publications'] -> getDetailPublication($id);
+        return $this -> renderer -> render(
+            $this -> request,
+            "publication-detail",
+            [
+                "publication" => $publication
+            ]
+        );
+    }
 }

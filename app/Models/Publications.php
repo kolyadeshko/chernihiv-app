@@ -11,7 +11,7 @@ class Publications extends MySqlModel
     ];
     public $tablename = "publications";
 
-    public function getPublicationsByCategory($sqlParams){
+    public function getPublications($sqlParams){
         $where = $this -> sqlParser -> getCondition($sqlParams);
         $limit = $this -> sqlParser -> getLimit($sqlParams);
         $sql = "SELECT
@@ -41,6 +41,22 @@ class Publications extends MySqlModel
             "pubCount" => $pubCount
         ];
     }
+    public function getDetailPublication($id)
+    {
+        $sql = "SELECT
+                        publications.*,
+                        users.nickname,
+                        category.categoryname
+                        FROM (
+                            (publications LEFT JOIN category ON publications.categoryid = category.id)
+                            INNER JOIN users ON users.id = publications.userid
+                            ) WHERE publications.id=:id AND publications.publicated
+                            ";
+        $stmt = $this -> connection -> prepare($sql);
+        $stmt -> execute(['id' => $id]);
+        return $stmt -> fetch(\PDO::FETCH_ASSOC);
+    }
+
     public  function insertPublication($data){
         if ($data['categoryid'] === "") unset($data["categoryid"]);
         $sql = $this -> sqlParser -> getInsertExpression($this -> tablename,$data);

@@ -12,5 +12,7 @@
 <?php  include "includes/header.php"?>
 <script> let DATA  = <?= $DATA ?></script>
 <?php include "$templateName.php" ?>
+<?php include 'includes/footer.php' ?>
+
 </body>
 </html>

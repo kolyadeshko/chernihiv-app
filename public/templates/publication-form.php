@@ -1,4 +1,4 @@
-
+<title>Добавить публикацию</title>
 <div class="publication-add">
     <div class="publication-add__container">
         <div class="publication-add__row">
