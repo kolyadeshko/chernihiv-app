@@ -2,9 +2,10 @@ body, body * {
     padding: 0;
     margin: 0;
     list-style: none;
+
 }
 
-* {
+a{
     text-decoration: none;
     color: black;
     box-sizing: border-box;
@@ -13,6 +14,10 @@ body, body * {
 @font-face {
     font-family: Akademische schmalfette; /* Имя шрифта */
     src: url("../fonts/Akademischeschmalfette.ttf"); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: MontHeavy; /* Имя шрифта */
+    src: url("../fonts/MontHeavy.ttf"); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
@@ -68,7 +73,7 @@ body, body * {
     position: sticky;
     top: -100%;
     z-index: 3;
-    background-color: #ff0000;
+    background-color: red;
     transition: top 0.5s;
     box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
 }
@@ -162,6 +167,16 @@ body, body * {
     max-width: 90%;
     margin: 0 auto;
 }
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+.content{
+    padding-bottom: 80px;
+}
+
+
 
 #main-section {
 }
@@ -828,6 +843,7 @@ body, body * {
 .modal__img>img{
     display: block;
     max-height: 90%;
+    min-height: 80%;
     max-width: 90%;
 }
 .modal__cross{
@@ -869,6 +885,43 @@ body, body * {
     height: 50px;
     width: 50px;
 }
+.publication__down{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.publication__data{
+
+}
+.publication__like{
+    padding:20px;
+}
+.like{
+
+}
+.like__body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.like__heart{
+    color:red;
+}
+.like__count{
+    font-family: MontHeavy;
+    font-size: 23px;
+}
+.like__text{
+    text-align: center;
+    font-size: 20px;
+    font-family: "Noto Sans";
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.like__text.active{
+    opacity: 1;
+}
 .publication__data-item{
     margin: 15px 0;
     font-family: "Noto Sans";
@@ -900,4 +953,31 @@ body, body * {
     font-size: 20px;
     font-family: "Noto Sans";
     font-weight: bold;
+}
+
+.no-publication{
+
+}
+.no-publication__message{
+
+}
+.no-publication__body{
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.no-publication__img{
+    flex: 0 1 30%;
+
+}
+.no-publication__img>img{
+    width: 100%;
+}
+.no-publication__text{
+    font-size: 30px;
+    text-align: center;
+    font-family: "Akademische schmalfette";
+    color: #4a4a4a;
+    margin: 0 15px;
 }

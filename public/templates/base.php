@@ -9,10 +9,11 @@
     <script src="../static/js/vue.js"></script>
 </head>
 <body>
-<?php  include "includes/header.php"?>
-<script> let DATA  = <?= $DATA ?></script>
-<?php include "$templateName.php" ?>
-<?php include 'includes/footer.php' ?>
-
+<div class="wrapper">
+    <?php include "includes/header.php" ?>
+    <script> let DATA = <?= $DATA ?></script>
+    <div class="content"><?php include "$templateName.php" ?></div>
+    <?php include 'includes/footer.php' ?>
+</div>
 </body>
 </html>

@@ -93,7 +93,6 @@ class UserController extends Controller
 
     public function checkLogin()
     {
-        sleep(2);
         $data = $this->request->getGetParams();
         $checkNickname = $this->models['users']->getByField("nickname", $data['nickname']);
         if (empty($checkNickname)) {

@@ -67,6 +67,16 @@ $routes = [
         ],
         "description" => "Информация об отдельно взятой публикации"
     ],
+    [
+        "method" => 'GET',
+        "path" => "/change-like/{publicationId:\d+}",
+        "handler" => [
+            "className" => "PublicationController",
+            "methodName" => "changeLike",
+            "loginRequire"
+        ],
+        "description" => "Меняет значение лайка на публикации на противоположный"
+    ],
 
     [
         "method" => "GET",

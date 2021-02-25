@@ -14,7 +14,7 @@ class PublicationController extends Controller
 
     public function publicationsList($params = [])
     {
-        $sqlParams = array_merge($this->request->getGetParams(),$params);
+        $sqlParams = array_merge($this->request->getGetParams(),$params,['publicated'=>1]);
         $this->getPagination($sqlParams, 5);
         $res = $this->models["publications"]->getPublications($sqlParams);
         return $this->renderer->render(
@@ -91,7 +91,26 @@ class PublicationController extends Controller
 
     public function publicationDetail($params){
         $id = $params['id'];
+        // получаем запрашиваемую публикацию
         $publication = $this -> models['publications'] -> getDetailPublication($id);
+        // добавляем один просмотр к данной записи
+        if ($publication){
+            $this -> models['publications'] -> addPublicationView($id);
+        }
+        // проверяем есть ли авторизированный пользователь в списке лайкнувших
+        $publication['users_likes'] = json_decode($publication['users_likes']);
+        if (in_array(
+            $this -> request -> auth -> getUserData()['id'],
+            $publication['users_likes']
+
+        )){
+            $publication['liked'] = true;
+        } else {
+            $publication['liked'] = false;
+        }
+        // убираем с данных о публикации список лайкнувших
+        unset($publication['like_users']);
+
         return $this -> renderer -> render(
             $this -> request,
             "publication-detail",
@@ -100,4 +119,14 @@ class PublicationController extends Controller
             ]
         );
     }
+    // функция которая добавляет пользователя в список лайкнувших запись
+    // либо удаляет оттуда
+    public function changeLike($params){
+        $publicationId = $params['publicationId'];
+        $userId = $this -> request -> auth -> getUserData()['id'];
+        $this -> models['publications'] -> changeLike(
+            $userId, $publicationId
+        );
+    }
+
 }

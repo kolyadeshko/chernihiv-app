@@ -44,7 +44,15 @@ class Publications extends MySqlModel
     public function getDetailPublication($id)
     {
         $sql = "SELECT
-                        publications.*,
+                        publications.id,
+                        publications.description,
+                        publications.created,
+                        publications.views,
+                        publications.categoryid,
+                        publications.photo,
+                        publications.userid,
+                        publications.users_likes,
+                        JSON_LENGTH(users_likes) AS likes,
                         users.nickname,
                         category.categoryname
                         FROM (
@@ -59,6 +67,7 @@ class Publications extends MySqlModel
 
     public  function insertPublication($data){
         if ($data['categoryid'] === "") unset($data["categoryid"]);
+        $data['users_likes'] = '[]';
         $sql = $this -> sqlParser -> getInsertExpression($this -> tablename,$data);
         $stmt = $this -> connection -> prepare($sql);
         $stmt -> execute($data);
@@ -68,5 +77,38 @@ class Publications extends MySqlModel
         $sql = "SELECT COUNT(*) as count FROM {$this -> tablename} WHERE publicated";
         return $this -> connection -> query($sql) -> fetch()['count'];
 
+    }
+
+
+    public function addPublicationView($id){
+        $sql = "UPDATE `publications` SET `views` =`views`+1 WHERE `publications`.`id` = :id";
+        $stmt = $this -> connection -> prepare($sql);
+        $stmt -> execute([ "id" => $id ]);
+    }
+
+    public function changeLike($userId,$publicationId){
+        // получаем запись
+        $sql = "SELECT users_likes FROM publications WHERE id=:id";
+        $stmt = $this -> connection -> prepare($sql);
+        $stmt -> execute(['id' => $publicationId]);
+        // массив лайков под записью
+        $likes = json_decode($stmt ->fetch(\PDO::FETCH_ASSOC)['users_likes']);
+        // переменная которая фиксирует был ли
+        // удален элемент с массива лайкнувших
+        $delete = 0;
+        foreach ($likes as $key => $value){
+            if ($value === $userId){
+                unset($likes[$key]);
+                $delete = 1;
+                break;
+            }
+        }
+        // если с массива не было удалено элемент,
+        // то добавляем его
+        if (!$delete) $likes[] = $userId;
+        $likes = json_encode($likes);
+        $sql = "UPDATE `publications` SET users_likes=:users_likes WHERE id=:id";
+        $stmt = $this -> connection -> prepare($sql);
+        $stmt -> execute(['id' => $publicationId,'users_likes'=>$likes]);
     }
 }
