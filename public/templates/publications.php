@@ -19,6 +19,38 @@
                 </div>
             </div>
         </div>
+        <div id="ordering">
+            <div class="ordering__row">
+                <div class="ordering__title">
+                    Сортировка
+                </div>
+                <div class="ordering__body">
+                    <div class="ordering__subtitle">
+                        Сортировать по:
+                    </div>
+                    <div class="ordering__orderby">
+                        <div class="ordering__item">
+                            <input type="radio" name="orderby">Просмотрам
+                        </div>
+                        <div class="ordering__item">
+                            <input type="radio" name="orderby">Дате публикации
+                        </div>
+                        <div class="ordering__item">
+                            <input type="radio" name="orderby">Публикации
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="ordering__ordering">
+                        <div class="ordering__item">
+                            <input type="radio" name="ordering">По убыванию
+                        </div>
+                        <div class="ordering__item">
+                            <input type="radio" name="ordering">По возрастанию
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="publications-pagination">
             <div class="pagination">
                 <div class="pagination__body">
@@ -38,28 +70,23 @@
         el: "#publications",
         data: {
             publications: DATA.publications,
-            paginationInfo: DATA.paginationInfo
+            paginationInfo: DATA.paginationInfo,
         },
         methods: {
-            getCurrentUrl: function () {
-                return window.location.href;
-            },
-
             getPage: function (pageNum) {
-                let currentUrl = this.getCurrentUrl();
-                if ((/\?page=\d+/).test(currentUrl)) {
-                    currentUrl = currentUrl.replace(/\?page=\d+/, "?page=" + pageNum);
-                } else {
-                    currentUrl += "?page=" + pageNum
-                }
-                return currentUrl;
+                let url = new URL(window.location.href);
+                url.searchParams.set('page',pageNum)
+                return url.href;
             },
             checkActive: function (page) {
-                let currentUrl = this.getCurrentUrl();
-                if (page === 1 && !(/\?page=\d+/).test(currentUrl)){
-                    return true
+                let url = new URL(window.location.href);
+                let currentPage = url.searchParams.get('page');
+                if (!url.searchParams.has('page') && page === 1){
+                    return true;
+                } else if (currentPage === String(page)){
+                    return true;
                 }
-                return this.getPage(page) === currentUrl;
+                return false
             }
         },
 

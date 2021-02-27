@@ -294,7 +294,7 @@ a{
 }
 
 .publications__body {
-    padding: 15px;
+    padding: 15px 45px 15px 15px;
 }
 
 .publications__p-item {
@@ -391,6 +391,35 @@ a{
 .pagination__item.active{
     background-color: white;
     color: red;
+}
+#ordering{
+    position: fixed;
+    right: 0;
+    top:50%;
+}
+.ordering__row{
+
+}
+.ordering__title{
+
+}
+.ordering__body{
+
+}
+.ordering__orderby{
+
+}
+.ordering__subtitle{
+
+}
+.ordering__orderby{
+
+}
+.ordering__item{
+
+}
+.ordering__ordering{
+
 }
 
 /* ФОРМА ПУБЛИКАЦИИ */
