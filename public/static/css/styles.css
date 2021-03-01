@@ -291,14 +291,14 @@ a{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding:20px;
 }
 
 .publications__body {
-    padding: 15px 45px 15px 15px;
 }
 
 .publications__p-item {
-    flex: 0 1 32%;
+    flex: 0 1 45%;
     margin: 0 0 30px 0;
     -webkit-box-shadow: 0px 20px 0px -10px #FFFFFF, 0px -20px 0px -10px #FFFFFF, 20px 0px 0px -10px #FFFFFF, -20px 0px 0px -10px #FFFFFF, 0px 0px 0px 10px #FF0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     box-shadow: 0px 20px 0px -10px #FFFFFF, 0px -20px 0px -10px #FFFFFF, 20px 0px 0px -10px #FFFFFF, -20px 0px 0px -10px #FFFFFF, 0px 0px 0px 10px #FF0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
@@ -307,7 +307,7 @@ a{
 
 .p-item__logo {
     width: 100%;
-    height: 250px;
+    height: 400px;
 
 }
 
@@ -330,6 +330,7 @@ a{
 }
 
 .p-item__created {
+    text-align: center;
 }
 
 .p-item__user {
@@ -364,6 +365,12 @@ a{
     background-color: white;
     color: red;
 }
+@media (max-width: 768px) {
+    .publications__p-item{
+        flex: 100%;
+    }
+
+}
 #publications-pagination{
 
 }
@@ -393,24 +400,37 @@ a{
     color: red;
 }
 #ordering{
-    position: fixed;
-    right: 0;
-    top:50%;
+    font-family: MontHeavy;
+
 }
 .ordering__row{
-
+    padding: 10px 50px;
 }
 .ordering__title{
-
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+}
+.ordering__title-text{
+    margin-right: 15px;
+}
+.ordering__drop-btn{
+    transition: all 0.2s;
+}
+.ordering__drop-btn.active{
+    transform: rotate(180deg);
 }
 .ordering__body{
-
+    height: 0;
+    overflow: hidden;
+}
+.ordering__body.active{
+    height: auto;
 }
 .ordering__orderby{
-
 }
 .ordering__subtitle{
-
+    font-size: 20px;
 }
 .ordering__orderby{
 
@@ -418,8 +438,18 @@ a{
 .ordering__item{
 
 }
+.ordering__item>input{
+    margin-right: 15px;
+}
 .ordering__ordering{
 
+}
+.ordering__btn{
+    display: inline-block;
+    padding:10px;
+    margin: 10px;
+    background-color: #FF0000;
+    color: white;
 }
 
 /* ФОРМА ПУБЛИКАЦИИ */
