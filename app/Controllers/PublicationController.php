@@ -17,17 +17,25 @@ class PublicationController extends Controller
         $sqlParams = array_merge($this->request->getGetParams(),$params,['publicated'=>1]);
         $this->getPagination($sqlParams, 5);
         $res = $this->models["publications"]->getPublications($sqlParams);
+        $publications = $res['publications'];
+        $this -> dateTransform($publications,'created');
         return $this->renderer->render(
             $this->request,
             "publications",
             [
-                "publications" => $res['publications'],
+                "publications" => $publications,
                 "paginationInfo" => [
                     "count" => $res['pubCount'],
                     "pageCount" => ceil($res['pubCount'] / 5)
                 ]
             ]
         );
+    }
+    private function dateTransform(&$arr,$field){
+        foreach ($arr as $k => $v){
+            $date = strtotime($v[$field]);
+            $arr[$k][$field] = date('d.m.Y',$date);
+        }
     }
 
     public function publicationAdd($errorList = '')

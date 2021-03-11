@@ -18,7 +18,9 @@ class Publications extends MySqlModel
                             publications.*,
                             category.categoryname,
                             users.nickname,
-                            users.isadmin
+                            users.isadmin,
+                            JSON_LENGTH(users_likes) AS likes
+
                         FROM (
                             (
                                 publications LEFT JOIN category ON publications.categoryid = category.id
@@ -27,9 +29,10 @@ class Publications extends MySqlModel
                             )" . $where . $limit;
 
         // получаем публикации
+
         $stmt = $this->connection -> prepare($sql);
         $stmt -> execute($sqlParams);
-        $publications = $stmt -> fetchAll(\PDO::FETCH_CLASS);
+        $publications = $stmt -> fetchAll(\PDO::FETCH_ASSOC);
         // количество
         $pubCountSql = "SELECT COUNT(*) AS count FROM publications ".$where;
         $stmt = $this -> connection -> prepare($pubCountSql);

@@ -7,7 +7,7 @@ namespace App;
 class SQLparser
 {
 
-    public function getCondition($conditionArray)
+    public function getCondition(&$conditionArray)
     {
         if (empty($conditionArray)) return "";
         //
@@ -28,8 +28,10 @@ class SQLparser
                 // получаем выражение с больше(и/или)меньше
                 $condition = $this->getMinMaxCondition($key,$min,$max);
             } elseif ($key === "orderby") {
+                unset($conditionArray[$key]);
                 $orderBy = $this->getOrderBy($value);
             } elseif ($key === "ordering") {
+                unset($conditionArray[$key]);
                 $ordering = $this->getOrdering($value);
             }
             else if($key !== "limit"){

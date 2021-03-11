@@ -47,5 +47,8 @@ class Controller
         }
         unset($sqlParams['page']);
     }
+    protected function redirect($url){
+        return header("Location:$url");
+    }
 
 }

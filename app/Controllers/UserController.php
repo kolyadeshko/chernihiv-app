@@ -12,7 +12,9 @@ class UserController extends Controller
 {
     public function userRegister()
     {
-
+        if ($this->request->auth->isAuth()) {
+            return $this->redirect('/');
+        }
         $serverErrors = $this->getServerErrors();
         return $this->renderer->render(
             $this->request,
@@ -116,13 +118,15 @@ class UserController extends Controller
 
     public function loginForm()
     {
-
+        if ($this->request->auth->isAuth()) {
+            return $this->redirect('/');
+        }
         return $this->renderer->render(
             $this->request,
             "login-form",
             [
                 "errors" => false,
-                "rememberedUser" => $this -> session -> getRememberedUser()
+                "rememberedUser" => $this->session->getRememberedUser()
             ]
         );
     }
@@ -134,8 +138,8 @@ class UserController extends Controller
             return header("Location:/login");
         }
         // запоминаем пользователя
-        $rememberMe = $this -> request -> getPostParams()['remember-me'];
-        if ($rememberMe) $this -> session -> rememberUser($nickname);
+        $rememberMe = $this->request->getPostParams()['remember-me'];
+        if ($rememberMe) $this->session->rememberUser($nickname);
 
         $user = $this->models['users']->getUserByNickname($nickname);
         $this->session->setSessionKey(
@@ -147,22 +151,48 @@ class UserController extends Controller
 
     public function headerUserInformation()
     {
-        $auth = $this -> request -> auth;
+        $auth = $this->request->auth;
         $res =
             [
-                "isAuth" => $auth -> isAuth(),
+                "isAuth" => $auth->isAuth(),
                 "userdata" =>
-                [
-                    "id" => $auth -> getUserData()['id'],
-                    "nickname" => $auth -> getUserData()['nickname']
-                ]
+                    [
+                        "id" => $auth->getUserData()['id'],
+                        "nickname" => $auth->getUserData()['nickname']
+                    ]
             ];
         return json_encode($res);
     }
 
-    public function logout(){
-        $this -> request -> auth -> logoutUser();
+    public function logout()
+    {
+        $this->request->auth->logoutUser();
         return header("Location:/");
+    }
+
+    public function userDetail($params)
+    {
+        $userId = $params['id'];
+        $user = $this->models['users']->getByField(
+            'id',
+            $userId
+        )[0];
+        $this->request->auth->getUserData()['id'] === $userId ?
+            $itsMe = true : $itsMe = false;
+        unset($user['password'], $user['isadmin'], $user['lastactive']);
+        return $this->renderer->render(
+            $this->request,
+            'user-detail',
+            [
+                "userData" => array_merge($user,
+                    [
+                        'itsMe' => $itsMe,
+                        'pubCount' => $this -> models['users'] -> userPublicationsNumber($userId)
+                    ]
+                )
+
+            ]
+        );
     }
 
 }

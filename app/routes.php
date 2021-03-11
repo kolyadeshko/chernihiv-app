@@ -171,6 +171,17 @@ $routes = [
         ],
         "description" => "Разлогиниться"
     ],
+    [
+        "method" => "GET",
+        "path" => "/user/{id:\d+}",
+        "handler" => [
+            "className" => "UserController",
+            "methodName" => "userDetail",
+            "loginRequire"
+
+        ],
+        "description" => "Стриница пользователя"
+    ],
 
 
 ];
