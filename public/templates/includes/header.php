@@ -1,11 +1,3 @@
-<!--<div id="headerimg">-->
-<!--    <div id="headerimg__body">-->
-<!--        <div class="headerimg__text">-->
-<!--            Добро пожаловать в Чернигов!-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <img id="headerimg__img" src="--><?//= STATIC_IMG ?><!--/headers-che.jpg" alt="">-->
-<!--</div>-->
 <div id="navbar">
     <div class="container">
         <div class="navbar__row">
@@ -15,9 +7,9 @@
                 </a>
             </div>
 
-            <div class="navbar__body">
+            <div class="navbar__body" :class="{ active : navActive }">
                 <div class="navbar__links">
-                    <div class="navbar__link" >
+                    <div class="navbar__link">
                         Публикации
                         <div class="dropdown">
                             <a href="/publications">
@@ -31,41 +23,36 @@
                             </a>
                         </div>
                     </div>
-
+                    <div class="navbar__link" v-if="!data.isAuth">
+                        Авторизация
+                        <div class="dropdown">
+                            <a href="/register">
+                                Зарегестрироваться
+                            </a>
+                            <a href="/login">
+                                Войти
+                            </a>
+                        </div>
+                    </div>
+                    <div class="navbar__link" v-else-if="data.isAuth">
+                        {{ data.userdata.nickname }}
+                        <div class="dropdown">
+                            <a :href="'/user/'+data.userdata.id">
+                                Мой аккаунт
+                            </a>
+                            <a href="/logout">
+                                Выйти
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <template v-if="data.isAuth">
-                    <div class="navbar__user-links">
-                        <div class="user-links">
-                            <div  class="user-links__user" @click="dropDown">
-                                {{ data.userdata.nickname }}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                </svg>
-                                <div class="dropdown" :class="{ active:dropActive }">
-                                    <a :href="'/user/'+data.userdata.id">
-                                        Мой аккаунт
-                                    </a>
-                                    <a href="/logout">
-                                        Выйти
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                <template v-else>
-                    <div class="navbar__auth-links">
-                        <div class="auth-links">
-                            <a href="/register" class="auth-links__link">
-                                Регстрация
-                            </a>
-                            <a href="/login" class="auth-links__link">
-                                Вход
-                            </a>
-                        </div>
-                    </div>
-                </template>
+            </div>
+            <div class="navbar__burger" @click="activateNav">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" color="white" fill="currentColor"
+                     class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
             </div>
         </div>
     </div>
@@ -75,7 +62,7 @@
         el: "#navbar",
         data: {
             data: [],
-            dropActive: false,
+            navActive : false
         },
         mounted: function () {
             let url = "/header-user-information";
@@ -85,8 +72,8 @@
                 });
         },
         methods: {
-            dropDown: function () {
-                this.dropActive = !this.dropActive;
+            activateNav(){
+                this.navActive = !this.navActive;
             }
         },
     });

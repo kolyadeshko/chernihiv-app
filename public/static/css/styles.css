@@ -35,40 +35,6 @@ a{
     src: url("../fonts/PTSans.ttf"); /* Путь к файлу со шрифтом */
 }
 
-#headerimg {
-    position: relative;
-}
-
-#headerimg__img {
-    width: 100%;
-    display: block;
-    transition: all 7s;
-
-}
-
-#headerimg__body {
-    position: absolute;
-    background-color: rgba(50, 50, 50, 0.5);
-    box-shadow: 2px 2px 10px rgba(50, 50, 50, 0.5);
-    width: 80%;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    padding: 15px 20px;
-    opacity: 0;
-    transition: opacity 5s;
-    border-radius: 5px;
-}
-
-.headerimg__text {
-    text-align: center;
-    font-family: "Akademische schmalfette";
-    font-size: 30px;
-    color: #ffffff;
-    text-shadow: 2px 2px 5px black;
-}
-
 #navbar {
     position: sticky;
     top: -100%;
@@ -96,7 +62,7 @@ a{
 .navbar__body{
     flex: 0 0 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .navbar__body *{
@@ -107,6 +73,7 @@ a{
 }
 .navbar__links{
     display: flex;
+    justify-content: space-around;
 }
 .navbar__link{
     position: relative;
@@ -132,37 +99,27 @@ a{
     display: block;
     margin: 10px 0 0 0;
 }
-.navbar__user-links{
 
+.navbar__burger{
+    display: none;
 }
-.user-links{
-    height: 100%;
+@media (max-width: 854px) {
+    .navbar__burger{
+        display: block;
+    }
+    .navbar__body{
+        display: none;
+    }
+    .navbar__body.active{
+        display: block;
+        position: absolute;
+        top:100%;
+        left:0;
+        width: 100%;
+        background-color: #c80000;
+    }
 }
-.user-links__user{
-    position: relative;
-    padding:10px;
-}
-.navbar__auth-links{
 
-}
-.auth-links{
-    display: flex;
-    justify-content: space-around;
-}
-.auth-links__link{
-    display: block;
-    padding: 10px;
-    background-color: white;
-    color:red;
-    margin : 0 10px;
-    border: 2px solid #b80000;
-    transition: background-color 0.2s;
-    border-radius: 4px;
-}
-.auth-links__link:hover{
-    background-color: rgba(58, 199, 84, 0.8);
-    color:white;
-}
 .container {
     max-width: 90%;
     margin: 0 auto;
@@ -955,6 +912,14 @@ a{
 .publication__like{
     padding:20px;
 }
+@media (max-width: 500px)
+{
+    .publication__down{
+        flex-direction: column;
+    }
+}
+
+
 .like{
 
 }
@@ -1040,3 +1005,68 @@ a{
     color: #4a4a4a;
     margin: 0 15px;
 }
+
+/*  USER DETAIL */
+
+#user{
+
+}
+.user__body{
+
+}
+.user__body *{
+    font-family:"Noto Sans";
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+.user__row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.user__first-column{
+    flex: 30%;
+}
+.user__second-column{
+    flex: 70%;
+}
+.user__second-column > *{
+    margin: 20px 0;
+}
+.user__logo{
+
+}
+.user__log>img{
+    display: block;
+    max-width: 100%;
+}
+.user__nickname{
+
+}
+.user__title{
+    font-size: 35px;
+}
+
+.user__subtitle{
+    font-size: 25px;
+    color: #676767;
+}
+.pub-count__button{
+    display: inline-block;
+    padding:15px;
+    background-color: #FF0000;
+    color: white;
+    border: 1px solid;
+}
+.user__logout{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.user__logout>*{
+    margin: 10px;
+}
+
+
+
