@@ -27,7 +27,7 @@
                         Авторизация
                         <div class="dropdown">
                             <a href="/register">
-                                Зарегестрироваться
+                                Регистрация
                             </a>
                             <a href="/login">
                                 Войти

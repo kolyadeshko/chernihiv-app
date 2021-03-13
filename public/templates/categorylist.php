@@ -14,10 +14,9 @@
                     Категории публикаций
                 </div>
                 <div class="category-info__text">
-                    fdlafaflas;fl;kas;lkf;lkas;lkf;lsak;lf
-                    sald;lksa;ld;saklkf
-                    ldksjvlksfjlsdlfjsdfds
-                    ljdslkfsdljflsd
+                    На этой странице Вы можете выбрать категорию интересующих вас публикаций.
+                    Например, если Вам нравится Вал, вы можете выбрать категорию "Вал" и посмотреть
+                    все публикации связанные с этим местом.
                 </div>
             </div>
         </div>

@@ -27,14 +27,8 @@ class SQLparser
                 if (!$min && !$max) continue;
                 // получаем выражение с больше(и/или)меньше
                 $condition = $this->getMinMaxCondition($key,$min,$max);
-            } elseif ($key === "orderby") {
-                unset($conditionArray[$key]);
-                $orderBy = $this->getOrderBy($value);
-            } elseif ($key === "ordering") {
-                unset($conditionArray[$key]);
-                $ordering = $this->getOrdering($value);
             }
-            else if($key !== "limit"){
+            else if(!in_array($key,['limit','ordering','orderby'])){
                 $condition = $this->getOther($key, $value);
             }
             if ($condition) array_push($conditions, $condition);
@@ -58,7 +52,28 @@ class SQLparser
             return "$key = :$key";
         }
     }
-
+    public function getOrdering(&$sqlParams){
+        $returnExpression = ' ';
+        $orderByValue = $sqlParams['orderby'];
+        $orderingValue = $sqlParams['ordering'];
+        if (isset($orderByValue)){
+            $returnExpression .= "ORDER BY `$orderByValue` ";
+            unset($sqlParams['orderby']);
+            $ordering = '';
+            if (isset($orderingValue)){
+                $ascValues = ["+", "asc", "incr", "^"];
+                $descValues = ["-", "desc",];
+                if (in_array($orderingValue, $ascValues)) {
+                    $ordering = " ASC ";
+                } elseif (in_array($orderingValue, $descValues)) {
+                    $ordering = " DESC ";
+                }
+                unset($sqlParams["ordering"]);
+            }
+            $returnExpression .= $ordering;
+        }
+        return $returnExpression;
+    }
     public function getLimit(&$sqlParams){
         $returnExpression = " LIMIT ";
         $limit = $sqlParams["limit"];
@@ -70,33 +85,6 @@ class SQLparser
             return $returnExpression . "$startPosition , $limit";
         }
         return "";
-    }
-
-    //метод который возвращает выражение сортировки
-    protected function getOrderBy($value)
-    {
-        $fields = '';
-        if (is_array($value)) {
-            $fields = join(',', $value);
-        } elseif (is_string($value)) {
-            $fields = $value;
-        }
-        return " ORDER BY " . $fields;
-
-    }
-
-    // метод который метод сортироки(по возрастанию или убыванию)
-    protected function getOrdering($value)
-    {
-        $ordering = '';
-        $ascValues = ["+", "asc", "incr", "^"];
-        $descValues = ["-", "desc",];
-        if (in_array($value, $ascValues)) {
-            $ordering = " ASC ";
-        } elseif (in_array($value, $descValues)) {
-            $ordering = " DESC ";
-        }
-        return $ordering;
     }
 
     // метод который возвращает выражение с больше или меньше

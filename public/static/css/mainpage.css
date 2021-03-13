@@ -7,7 +7,9 @@
     src: url("../fonts/Play-Bold.ttf"); /* Путь к файлу со шрифтом */
 }
 
-
+body *{
+    box-sizing: border-box;
+}
 #mainpage{
 
 }
@@ -28,6 +30,11 @@
 .get-started__body{
     position: relative;
     overflow: hidden;
+
+}
+.get-started__body>img{
+    display: block;
+
 }
 .get-started__content{
     position: absolute;
@@ -65,12 +72,7 @@
         left: 0;
         padding: 20px;
     }
-    .get-started__title{
-        font-size: 30px;
-    }
-    .get-started__text{
-        font-size: 17px;
-    }
+
 }
 @media (max-width: 768px) {
     .get-started__content{
@@ -78,6 +80,12 @@
         top:0;
         left: 0;
         padding: 20px;
+    }
+    .get-started__title{
+        font-size: 30px;
+    }
+    .get-started__text{
+        font-size: 16px;
     }
 }
 
@@ -122,6 +130,8 @@
 .pub-slider__link{
     left: 50%;
     opacity: 0.2;
+    transform: translate(-50%,0);
+
 }
 
 .pub-slider__link:hover{
@@ -181,7 +191,33 @@
 
     }
     .pub-slider__slide.active>img{
-        height: auto;
+        height: 250px;
+    }
+    .pub-slider__number,.pub-slider__views,.pub-slider__link{
+        top:15px;
+        padding: 9px;
+        background-color: rgba(0,0,0,0.7);
+        font-size: 13px;
+        color: white;
+        border-radius: 5px;
+        font-family: "Noto Sans";
+    }
+    .pub-slider__link{
+        left: 50%;
+        opacity: 0.2;
     }
 
+    .pub-slider__views{
+        right: 15px;
+    }
+    .pub-slider__number{
+        left: 15px;
+    }
+    .pub-slider__prev,.pub-slider__next{
+        font-size: 14px;
+        padding: 9px;
+    }
+    .pub-slider__column{
+        height: 100px;
+    }
 }

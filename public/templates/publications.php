@@ -20,15 +20,15 @@
                     </div>
                     <div class="ordering__orderby">
                         <div class="ordering__item">
-                            <input type="radio" v-model="orderby" value="views" name="orderby" id="viewsSort"> <label for="viewsSort">Просмотрам</label>
+                            <input type="radio" v-model="orderby" value="views"  name="orderby" id="viewsSort"> <label for="viewsSort">Просмотрам</label>
                         </div>
                         <div class="ordering__item">
-                            <input type="radio" v-model="orderby" value="created" name="orderby" id="dateSort">
+                            <input type="radio" v-model="orderby" value="created"  name="orderby" id="dateSort">
                             <label for="dateSort">Дате публикации</label>
 
                         </div>
                         <div class="ordering__item">
-                            <input type="radio" v-model="orderby" value="likes" name="orderby" id="likesSort"> <label for="likesSort">Лайкам</label>
+                            <input type="radio" v-model="orderby" value="likes"  name="orderby" id="likesSort"> <label for="likesSort">Лайкам</label>
                         </div>
                     </div>
                     <hr>
@@ -60,6 +60,10 @@
                         <div class="p-item__title">Автор:</div>
                         {{ publication.nickname }}
                     </a>
+                    <div class="p-item__likes-views">
+                        ❤️ {{ publication.likes }}
+                        👁 {{ publication.views }}
+                    </div>
                     <a :href="'/publication/'+ publication.id" class="p-item__button">Ближе</a>
                 </div>
             </div>
@@ -79,7 +83,7 @@
     </div>
 </div>
 <script>
-    new Vue({
+    let v = new Vue({
         el: "#publications",
         data: {
             publications: DATA.publications,
@@ -117,6 +121,15 @@
                     url.searchParams.set('ordering',this.ordering);
                 }
                 return url.href;
+            },
+            getChecked(key,value){
+                let url = new URL(window.location.href);
+                if (url.searchParams.has(key)){
+                    if (url.searchParams.get(key) === value){
+                        return true
+                    }
+                }
+                return false;
             }
         },
     });

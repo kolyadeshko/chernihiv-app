@@ -50,5 +50,14 @@ class Controller
     protected function redirect($url){
         return header("Location:$url");
     }
+    // проверяет массив на наличие определенных ключей
+    // и этих ключей нет, то ставятся значения по умолчанию
+    protected function setDefaultParams(&$params,$defaultParams){
+        foreach ($defaultParams as $key => $value){
+            if (!array_key_exists($key,$params)){
+                $params[$key] = $value;
+            }
+        }
+    }
 
 }

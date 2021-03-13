@@ -14,10 +14,17 @@ class PublicationController extends Controller
 
     public function publicationsList($params = [])
     {
-        $sqlParams = array_merge($this->request->getGetParams(),$params,['publicated'=>1]);
+        $getParams = $this -> request -> getGetParams();
+        $defaultValues = [
+            "orderby" => "created",
+            "ordering" => "desc"
+        ];
+        $this -> setDefaultParams($getParams,$defaultValues);
+        $sqlParams = array_merge($getParams,$params,['publicated'=>'1']);
         $this->getPagination($sqlParams, 5);
         $res = $this->models["publications"]->getPublications($sqlParams);
         $publications = $res['publications'];
+        // преобразовываем поле created в более читаемый вид
         $this -> dateTransform($publications,'created');
         return $this->renderer->render(
             $this->request,

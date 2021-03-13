@@ -13,6 +13,7 @@ class Publications extends MySqlModel
 
     public function getPublications($sqlParams){
         $where = $this -> sqlParser -> getCondition($sqlParams);
+        $ordering = $this -> sqlParser -> getOrdering($sqlParams);
         $limit = $this -> sqlParser -> getLimit($sqlParams);
         $sql = "SELECT
                             publications.*,
@@ -26,15 +27,13 @@ class Publications extends MySqlModel
                                 publications LEFT JOIN category ON publications.categoryid = category.id
                             ) 
                                 INNER JOIN users ON users.id = publications.userid
-                            )" . $where . $limit;
-
+                            )" . $where . $ordering . $limit;
         // получаем публикации
-
         $stmt = $this->connection -> prepare($sql);
         $stmt -> execute($sqlParams);
         $publications = $stmt -> fetchAll(\PDO::FETCH_ASSOC);
         // количество
-        $pubCountSql = "SELECT COUNT(*) AS count FROM publications ".$where;
+        $pubCountSql = "SELECT COUNT(*) AS count FROM publications " . $where;
         $stmt = $this -> connection -> prepare($pubCountSql);
         $stmt -> execute($sqlParams);
         $pubCount = $stmt -> fetch()['count'];
