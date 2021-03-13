@@ -1,6 +1,5 @@
 <div id="user">
     <title>Пользователь {{ userData.nickname }}</title>
-
     <div class="container">
         <div class="user__body">
             <div class="user__row">

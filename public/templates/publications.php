@@ -1,3 +1,4 @@
+<title>Публикации</title>
 <div id="publications">
     <div class="publications__body">
         <div id="ordering">

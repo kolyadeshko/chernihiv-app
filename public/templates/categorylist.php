@@ -1,3 +1,4 @@
+<title>Категории</title>
 <div id="main-section">
     <div class="main-section__body">
         <a href="/publications" class="item" style="flex:0 0 60%;">

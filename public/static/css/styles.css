@@ -319,8 +319,8 @@ a{
     transition: all 0.4s;
 }
 .p-item__likes-views{
-    font-size: 30px;
-    font-family: "Akademische schmalfette";
+    font-size: 25px;
+    font-family: AireExterior;
     user-select: none;
 }
 .p-item__user:hover {

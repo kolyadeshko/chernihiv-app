@@ -1,3 +1,4 @@
+<title>Вход</title>
 <div class="auth">
     <div class="auth__container">
         <div class="auth__row">

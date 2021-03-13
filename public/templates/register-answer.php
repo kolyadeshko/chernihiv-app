@@ -1,4 +1,4 @@
-
+<title>Ответ</title>
 <div id="answer">
     <div class="container">
         <div class="answer__row">
